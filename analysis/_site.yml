@@ -1,17 +1,26 @@
-name: "eMLR_model"
+name: eMLR_model
 output_dir: ../docs
 navbar:
-  title: "eMLR_model"
+  title: eMLR_model
   left:
   - text: Home
     href: index.html
-  - text: About
-    href: about.html
-  - text: License
-    href: license.html
+  - text: Config
+    menu:
+    - text: Parameterization
+      href: config_parameterization.html
+    - text: Masks
+      href: config_masks.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/Donghe-Zhu/eMLR_model
 output:
   workflowr::wflow_html:
     toc: yes
-    toc_float: yes
-    theme: cosmo
+    toc_float:
+      collapsed: no
+    toc_depth: 3
+    theme: flatly
+    code_folding: hide
     highlight: textmate
