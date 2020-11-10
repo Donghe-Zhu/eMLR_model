@@ -23,7 +23,7 @@ output:
   workflowr::wflow_html:
     toc: yes
     toc_float:
-      collapsed: no
+      collapsed: false
     toc_depth: 3
     theme: flatly
     code_folding: hide
