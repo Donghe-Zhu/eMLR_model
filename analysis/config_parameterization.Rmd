@@ -1,0 +1,64 @@
+---
+title: "Parameterization"
+author: "Donghe Zhu and Dr Jens Daniel Müller"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  workflowr::wflow_html:
+    number_sections: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Required Packages
+```{r Load_package}
+library(tidyverse) 
+library(knitr)
+```
+
+
+```{r ggplot_theme, include = FALSE}
+theme_set(theme_bw())
+```
+
+
+# Definition
+
+Following parameterizations were chosen to run analysis and display results:
+```{r define_parameters}
+
+parameters <-
+  lst(
+    lon_Atl_section = 335.5,
+    lat_section_N = 59.5,
+    lat_section_S = -59.5,
+    lon_Pac_section = 189.5,
+    lon_middle = 50.5,
+    lat_max = 65,
+    lat_min = -85
+  ) 
+
+parameters
+
+```
+
+# Write file
+
+```{r write_parameters}
+
+parameters %>%
+  write_rds(here::here("data",
+                       "parameters.rds"))
+
+rm(list = ls())
+
+```
+
+

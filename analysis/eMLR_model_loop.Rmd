@@ -1,0 +1,203 @@
+---
+title: "eMLR model loop"
+author: "Donghe Zhu and Dr Jens Daniel Müller"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  workflowr::wflow_html:
+    number_sections: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+editor_options:
+  chunk_output_type: console
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+```{r library, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(patchwork)
+library(stars)
+library(collapse)
+library(lubridate)
+```
+
+```{r read_parameters, include = FALSE}
+parameters <-
+  read_rds(here::here("data",
+                       "parameters.rds"))
+```
+
+```{r read_mask_files, include = FALSE}
+
+basinmask <- read_csv(
+  here::here(
+    "data/World_Ocean_Atlas_2018/_summarized_files",
+    "basin_mask_WOA18_AIP.csv"
+  )
+)
+basinmask <- basinmask %>%
+  select(-basin)
+
+landmask <-  read_csv(
+  here::here(
+    "data/World_Ocean_Atlas_2018/_summarized_files",
+    "land_mask_WOA18.csv"
+  )
+)
+
+```
+
+```{r read_section_global_coordinates, include = FALSE}
+
+section_global_coordinates <- read_csv(
+  here::here(
+    "data/World_Ocean_Atlas_2018/_summarized_files",
+    "section_global_coordinates.csv"
+  )
+)
+
+```
+
+```{r read_functions, include = FALSE}
+source(here::here("code", "plotting_functions.R"))
+```
+
+```{r ggplot_theme, include = FALSE}
+# ggplot theme for all plots
+theme_set(theme_bw())
+```
+
+
+# Read GLODAP clean data
+
+```{r read_GLODAP_clean_data}
+
+GLODAP <- read_csv(here::here("data",
+                       "GLODAPv2.2020_Merged_clean.csv"))
+
+```
+
+
+# Subset model data according to GLODAP observation since 1982
+
+## Regridded variable forcing model data
+
+```{r subset_regridded_variable_forcing_data}
+
+# for loop across years
+#years <- c("1982":"2019")
+years <- c("2007":"2008")
+
+for (i_year in years) {
+  # select GLODAP data for that year
+  GLODAP_year <- GLODAP %>%
+    filter(year == i_year)
+  
+  # create month x lat x lon grid of observations
+  grid_subset <- GLODAP_year %>%
+    select(month, lat, lon) %>%
+    unique()
+  
+  # for loop across variables
+  # variables <- c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
+  variables <- c("DIC", "ALK")
+  
+  for (i_variable in variables) {
+    # set path to model output files
+    path_model_regridded <-
+      "/net/kryo/work/loher/CESM_output/RECCAP2/regridded/"
+    
+    # read list of all files
+    file_list <-
+      list.files(path = path_model_regridded,
+                 pattern = paste("*", i_variable, "_", i_year, ".nc", sep = ""))
+    print(file_list)
+    
+    # select item out of file_list
+    file <- file_list[2]
+    
+    # read in data
+    variable_data <-
+      read_ncdf(paste(path_model_regridded,
+                      file,
+                      sep = ""))
+    
+    # convert to tibble
+    variable_data_tibble <- variable_data %>%
+      as_tibble()
+    
+    # convert longitudes
+    variable_data_tibble <- variable_data_tibble %>%
+      mutate(lon = if_else(lon < 20, lon + 360, lon))
+    
+    # mutate variables and filter NaN value
+    variable_data_tibble <- variable_data_tibble %>%
+      rename(depth = z_t) %>%
+      mutate(depth = depth / 100, month = month(time)) %>%
+      mutate(!!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
+      select(-time)
+    
+    # select data included in basinmask
+    variable_data_tibble <-
+      inner_join(variable_data_tibble, basinmask)
+    
+    # calculate annual average variable
+    variable_data_tibble_annual_average <-
+      variable_data_tibble %>%
+      filter(!is.na(!!sym(i_variable))) %>%
+      group_by(lat, lon, depth, basin_AIP) %>%
+      summarise(!!sym(i_variable) := mean(!!sym(i_variable)))
+    
+    # select surface annual average variable
+    variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
+      filter(depth == 5)
+    
+    # subset model at month x lat x lon grid of observations
+    model_subset <-
+      inner_join(grid_subset, variable_data_tibble) %>%
+      select(-basin_AIP)
+    
+    # add observation depth to model depth and conduct interpolation
+    obs_depth <- GLODAP_year %>%
+      select(month, lat, lon, depth) %>%
+      unique()
+    
+    model_subset <- full_join(model_subset, obs_depth) %>%
+      group_by(month, lat, lon) %>%
+      mutate(n = sum(!is.na(!!sym(i_variable)))) %>%
+      ungroup()
+    
+    model_subset_interpo <- model_subset %>%
+      filter(n > 1) %>%
+      group_by(lon, lat, month) %>%
+      arrange(depth) %>%
+      mutate(!!sym(i_variable) := approxfun(depth, !!sym(i_variable), rule = 2)(depth)) %>%
+      ungroup()
+    
+    # add model subset to GLODAP
+    model_subset_interpo <-
+      inner_join(obs_depth, model_subset_interpo) %>%
+      select(-n) %>%
+      mutate(year = as.numeric(i_year))
+    
+    GLODAP <- left_join(GLODAP, model_subset_interpo)
+    
+    # surface map of variable
+    surface_GLODAP(
+      variable_data_tibble_annual_average_surface,
+      obs_depth,
+      model_subset_interpo,
+      i_variable
+    )
+    # GLODAP with model subset:red point
+    # GLODAP without model subset:black point
+    
+  }
+}
+
+```
+

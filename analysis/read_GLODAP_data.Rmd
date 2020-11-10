@@ -1,0 +1,100 @@
+---
+title: "Read and clean GLODAPv2 data"
+author: "Donghe Zhu and Dr Jens Daniel Müller"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  workflowr::wflow_html:
+    number_sections: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Required Packages
+```{r Load_package}
+library(tidyverse)
+library(lubridate)
+```
+
+```{r ggplot_theme, include = FALSE}
+theme_set(theme_bw())
+```
+
+
+# Read GLODAPv2 2020 with relevant variables
+
+```{r read_GLODAP_csv}
+
+# set path to GLODAP files
+path_GLODAP <- "/net/kryo/work/updata/glodapv2_2020/"
+
+# read list of all files
+file_list <- list.files(path = path_GLODAP, pattern = "*_File.csv")
+print(file_list)
+
+# select item out of file_list
+file <- file_list[1]
+
+# read in GLODAP data
+GLODAP <-
+  read_csv(paste(
+    path_GLODAP,
+    file,
+    sep = ""
+    ),
+    na = "-9999",
+    col_types = cols(.default = col_double())
+  )
+
+# select relevant columns
+GLODAP <- GLODAP %>%
+  select(cruise:talkqc)
+
+# create date column
+GLODAP <- GLODAP %>%
+  mutate(date = ymd(paste(year, month, day))) %>%
+  relocate(date) %>%
+  arrange(date)
+
+# harmonize column names
+GLODAP <- GLODAP  %>%
+  rename(sal = salinity,
+         tem = temperature)
+
+# harmonize coordinates
+GLODAP <- GLODAP  %>%
+  rename(lon = longitude,
+         lat = latitude) %>%
+  mutate(lon = if_else(lon < 20, lon + 360, lon))
+
+# remove irrelevant columns
+GLODAP <- GLODAP %>%
+  select(-c(cruise:cast, day:minute, bottomdepth, pressure, theta, aou, aouf, 
+            maxsampdepth, bottle, sigma0:sigma4,
+            nitrite:nitritef))
+
+# select relevant years and filter tco2 NaN
+GLODAP <- GLODAP %>%
+  filter(year >= 1982) %>%
+  filter(!is.na(tco2))
+
+# regrid to 1*1 intervals
+GLODAP <- GLODAP %>% 
+  mutate(lat = cut(lat, seq(-90, 90, 1), seq(-89.5, 89.5, 1)),
+         lat = as.numeric(as.character(lat)),
+         lon = cut(lon, seq(20, 380, 1), seq(20.5, 379.5, 1)),
+         lon = as.numeric(as.character(lon)))
+
+# write file
+GLODAP %>%
+  write_csv(here::here("data",
+                       "GLODAPv2.2020_Merged_clean.csv"))
+
+```
