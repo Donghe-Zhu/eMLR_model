@@ -547,16 +547,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree8146501ec5dc617c2b7bda22eb5aaedf04b3986ctargetblank8146501a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/8146501ec5dc617c2b7bda22eb5aaedf04b3986c" target="_blank">8146501</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreee297770886ef7130057a7e255c9efbeb48049dcetargetblanke297770a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/e297770886ef7130057a7e255c9efbeb48049dce" target="_blank">e297770</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree8146501ec5dc617c2b7bda22eb5aaedf04b3986ctargetblank8146501a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreee297770886ef7130057a7e255c9efbeb48049dcetargetblanke297770a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/8146501ec5dc617c2b7bda22eb5aaedf04b3986c" target="_blank">8146501</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/e297770886ef7130057a7e255c9efbeb48049dce" target="_blank">e297770</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -607,6 +607,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/e297770886ef7130057a7e255c9efbeb48049dce/analysis/eMLR_model_loop.Rmd" target="_blank">e297770</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+local rebuild - jens
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/aac9a6447b7d8a8acfb4b99f8bdf844ea2fa08a9/docs/eMLR_model_loop.html" target="_blank">aac9a64</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -845,7 +879,8 @@ years &lt;- c(&quot;2007&quot;:&quot;2008&quot;)
 
 for (i_year in years) {
   
-  i_year &lt;- years[1]
+  # Uncomment line below for manual testing
+  # i_year &lt;- years[1]
   
   # select GLODAP data for that year
   GLODAP_year &lt;- GLODAP %&gt;%
@@ -857,7 +892,8 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     
-    i_variable &lt;- variables[1]
+    # Uncomment line below for manual testing
+    # i_variable &lt;- variables[1]
 
     # read list of all files
     file &lt;-
@@ -894,17 +930,6 @@ for (i_year in years) {
              month = month(time),
              !!sym(i_variable) := as.numeric(!!sym(i_variable))) %&gt;%
       select(-time)
-    
-    # calculate annual average variable
-    variable_data_tibble_annual_average &lt;-
-      variable_data_tibble %&gt;%
-      group_by(lat, lon, depth) %&gt;%
-      summarise(!!sym(i_variable) := mean(!!sym(i_variable))) %&gt;% 
-      ungroup()
-    
-    # select surface annual average variable
-    variable_data_tibble_annual_average_surface &lt;- variable_data_tibble_annual_average %&gt;%
-      filter(depth == min(depth))
     
     # create month x lat x lon grid of observations
     grid_subset &lt;- GLODAP_year %&gt;%
@@ -949,6 +974,18 @@ for (i_year in years) {
     
     # add model subset to GLODAP
     GLODAP &lt;- left_join(GLODAP, model_obs_interpo)
+    
+    # calculate annual average variable
+    variable_data_tibble_annual_average &lt;-
+      variable_data_tibble %&gt;%
+      group_by(lat, lon, depth) %&gt;%
+      summarise(!!sym(i_variable) := mean(!!sym(i_variable))) %&gt;% 
+      ungroup()
+    
+    # select surface annual average variable
+    variable_data_tibble_annual_average_surface &lt;- variable_data_tibble_annual_average %&gt;%
+      filter(depth == min(depth))
+    
     
     # surface map of variable
     print(
@@ -1025,7 +1062,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_ALK_2007.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-2">
@@ -1086,7 +1123,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2008.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-3">
@@ -1147,7 +1184,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_ALK_2008.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-4">
