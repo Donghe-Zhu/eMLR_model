@@ -93,6 +93,9 @@ GLODAP <- read_csv(here::here("data",
 years <- c("2007":"2008")
 
 for (i_year in years) {
+  
+  # i_year <- years[1]
+  
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
     filter(year == i_year)
@@ -105,6 +108,8 @@ for (i_year in years) {
   # for loop across variables
   # variables <- c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
   variables <- c("DIC", "ALK")
+  
+  # i_variable <- variables[1]
   
   for (i_variable in variables) {
     # set path to model output files
