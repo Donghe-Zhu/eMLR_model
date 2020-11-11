@@ -101,7 +101,8 @@ years <- c("2007":"2008")
 
 for (i_year in years) {
   
-  i_year <- years[1]
+  # Uncomment line below for manual testing
+  # i_year <- years[1]
   
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
@@ -113,7 +114,8 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     
-    i_variable <- variables[1]
+    # Uncomment line below for manual testing
+    # i_variable <- variables[1]
 
     # read list of all files
     file <-
@@ -150,17 +152,6 @@ for (i_year in years) {
              month = month(time),
              !!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
       select(-time)
-    
-    # calculate annual average variable
-    variable_data_tibble_annual_average <-
-      variable_data_tibble %>%
-      group_by(lat, lon, depth) %>%
-      summarise(!!sym(i_variable) := mean(!!sym(i_variable))) %>% 
-      ungroup()
-    
-    # select surface annual average variable
-    variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
-      filter(depth == min(depth))
     
     # create month x lat x lon grid of observations
     grid_subset <- GLODAP_year %>%
@@ -205,6 +196,18 @@ for (i_year in years) {
     
     # add model subset to GLODAP
     GLODAP <- left_join(GLODAP, model_obs_interpo)
+    
+    # calculate annual average variable
+    variable_data_tibble_annual_average <-
+      variable_data_tibble %>%
+      group_by(lat, lon, depth) %>%
+      summarise(!!sym(i_variable) := mean(!!sym(i_variable))) %>% 
+      ungroup()
+    
+    # select surface annual average variable
+    variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
+      filter(depth == min(depth))
+    
     
     # surface map of variable
     print(
