@@ -538,16 +538,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreeb3cec0cdeb94f71e7221dec8704ec29a59194d6ctargetblankb3cec0ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/b3cec0cdeb94f71e7221dec8704ec29a59194d6c" target="_blank">b3cec0c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree791a3510432c48c20df2d7a01bad54f5df0d9692targetblank791a351a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/791a3510432c48c20df2d7a01bad54f5df0d9692" target="_blank">791a351</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreeb3cec0cdeb94f71e7221dec8704ec29a59194d6ctargetblankb3cec0ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree791a3510432c48c20df2d7a01bad54f5df0d9692targetblank791a351a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/b3cec0cdeb94f71e7221dec8704ec29a59194d6c" target="_blank">b3cec0c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/791a3510432c48c20df2d7a01bad54f5df0d9692" target="_blank">791a351</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -556,6 +556,9 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    data/World_Ocean_Atlas_2018/
+
+Unstaged changes:
+    Modified:   code/Workflowr_project_managment_jdm.R
 
 </code></pre>
 <p>
@@ -594,6 +597,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/791a3510432c48c20df2d7a01bad54f5df0d9692/analysis/eMLR_model_loop.Rmd" target="_blank">791a351</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+rebuild all locally - jens
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/3995dff34f356ac0ff01951c34cf0897b9bac315/docs/eMLR_model_loop.html" target="_blank">3995dff</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -787,11 +824,13 @@ for (i_year in years) {
     GLODAP &lt;- left_join(GLODAP, model_subset_interpo)
     
     # surface map of variable
+    print(
     surface_GLODAP(
       variable_data_tibble_annual_average_surface,
       obs_depth,
       model_subset_interpo,
       i_variable
+    )
     )
     # GLODAP with model subset:red point
     # GLODAP without model subset:black point
@@ -799,13 +838,17 @@ for (i_year in years) {
   }
 }</code></pre>
 <pre><code>[1] &quot;GECO_NYF_cstCO2_DIC_2007.nc&quot; &quot;GIAF_JRA_2020_DIC_2007.nc&quot;  
-[3] &quot;RECCAP2_RunC_DIC_2007.nc&quot;   
-[1] &quot;GECO_NYF_cstCO2_ALK_2007.nc&quot; &quot;GIAF_JRA_2020_ALK_2007.nc&quot;  
-[3] &quot;RECCAP2_RunC_ALK_2007.nc&quot;   
-[1] &quot;GECO_NYF_cstCO2_DIC_2008.nc&quot; &quot;GIAF_JRA_2020_DIC_2008.nc&quot;  
-[3] &quot;RECCAP2_RunC_DIC_2008.nc&quot;   
-[1] &quot;GECO_NYF_cstCO2_ALK_2008.nc&quot; &quot;GIAF_JRA_2020_ALK_2008.nc&quot;  
+[3] &quot;RECCAP2_RunC_DIC_2007.nc&quot;   </code></pre>
+<p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;GECO_NYF_cstCO2_ALK_2007.nc&quot; &quot;GIAF_JRA_2020_ALK_2007.nc&quot;  
+[3] &quot;RECCAP2_RunC_ALK_2007.nc&quot;   </code></pre>
+<p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;GECO_NYF_cstCO2_DIC_2008.nc&quot; &quot;GIAF_JRA_2020_DIC_2008.nc&quot;  
+[3] &quot;RECCAP2_RunC_DIC_2008.nc&quot;   </code></pre>
+<p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;GECO_NYF_cstCO2_ALK_2008.nc&quot; &quot;GIAF_JRA_2020_ALK_2008.nc&quot;  
 [3] &quot;RECCAP2_RunC_ALK_2008.nc&quot;   </code></pre>
+<p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-4.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -834,9 +877,9 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.7.4 collapse_1.4.2  stars_0.4-0     sf_0.8-0       
+ [1] lubridate_1.7.4 collapse_1.4.2  stars_0.4-3     sf_0.9-6       
  [5] abind_1.4-5     patchwork_1.1.0 forcats_0.4.0   stringr_1.4.0  
- [9] dplyr_0.8.3     purrr_0.3.3     readr_1.3.1     tidyr_1.0.0    
+ [9] dplyr_1.0.2     purrr_0.3.3     readr_1.3.1     tidyr_1.0.0    
 [13] tibble_2.1.3    ggplot2_3.3.2   tidyverse_1.3.0
 
 loaded via a namespace (and not attached):
@@ -846,7 +889,7 @@ loaded via a namespace (and not attached):
  [7] assertthat_0.2.1          cellranger_1.1.0         
  [9] yaml_2.2.0                pillar_1.4.2             
 [11] backports_1.1.5           lattice_0.20-38          
-[13] glue_1.3.1                RcppEigen_0.3.3.5.0      
+[13] glue_1.4.2                RcppEigen_0.3.3.5.0      
 [15] digest_0.6.22             promises_1.1.0           
 [17] rvest_0.3.5               colorspace_1.4-1         
 [19] sandwich_2.5-1            htmltools_0.4.0          
@@ -856,28 +899,29 @@ loaded via a namespace (and not attached):
 [27] xtable_1.8-4              scales_1.0.0             
 [29] whisker_0.4               later_1.0.0              
 [31] git2r_0.26.1              generics_0.0.2           
-[33] withr_2.1.2               cli_1.1.0                
-[35] magrittr_1.5              crayon_1.3.4             
-[37] readxl_1.3.1              evaluate_0.14            
-[39] fs_1.3.1                  nlme_3.1-142             
-[41] xml2_1.2.2                RcppArmadillo_0.9.800.1.0
-[43] lwgeom_0.1-7              class_7.3-15             
-[45] tools_3.6.1               hms_0.5.2                
-[47] lifecycle_0.1.0           munsell_0.5.0            
-[49] reprex_0.3.0              compiler_3.6.1           
-[51] e1071_1.7-2               lfe_2.8-5.1              
-[53] RNetCDF_2.1-1             rlang_0.4.1              
-[55] classInt_0.4-2            units_0.6-5              
-[57] grid_3.6.1                rstudioapi_0.10          
-[59] rmarkdown_1.17            gtable_0.3.0             
-[61] DBI_1.0.0                 R6_2.4.1                 
-[63] ncmeta_0.3.0              zoo_1.8-6                
-[65] knitr_1.26                zeallot_0.1.0            
-[67] workflowr_1.6.2           rprojroot_1.3-2          
-[69] KernSmooth_2.23-16        stringi_1.4.3            
-[71] parallel_3.6.1            Rcpp_1.0.3               
-[73] vctrs_0.2.0               dbplyr_1.4.2             
-[75] tidyselect_0.2.5          xfun_0.11                </code></pre>
+[33] ellipsis_0.3.0            withr_2.1.2              
+[35] cli_1.1.0                 magrittr_1.5             
+[37] crayon_1.3.4              readxl_1.3.1             
+[39] evaluate_0.14             fs_1.3.1                 
+[41] nlme_3.1-142              xml2_1.2.2               
+[43] RcppArmadillo_0.9.800.1.0 lwgeom_0.1-7             
+[45] class_7.3-15              tools_3.6.1              
+[47] hms_0.5.2                 lifecycle_0.2.0          
+[49] munsell_0.5.0             reprex_0.3.0             
+[51] compiler_3.6.1            e1071_1.7-2              
+[53] lfe_2.8-5.1               RNetCDF_2.1-1            
+[55] rlang_0.4.8               classInt_0.4-2           
+[57] units_0.6-5               grid_3.6.1               
+[59] rstudioapi_0.10           labeling_0.3             
+[61] rmarkdown_1.17            gtable_0.3.0             
+[63] DBI_1.0.0                 R6_2.4.1                 
+[65] ncmeta_0.3.0              zoo_1.8-6                
+[67] knitr_1.26                workflowr_1.6.2          
+[69] rprojroot_1.3-2           KernSmooth_2.23-16       
+[71] stringi_1.4.3             parallel_3.6.1           
+[73] Rcpp_1.0.3                vctrs_0.3.4              
+[75] dbplyr_1.4.2              tidyselect_1.1.0         
+[77] xfun_0.11                </code></pre>
 </div>
 </div>
 </div>
