@@ -97,25 +97,25 @@ model_ID <- "GIAF_JRA_2020"
 
 # for loop across years
 #years <- c("1982":"2019")
-years <- c("2007":"2008")
+years <- c("1982":"1983")
 
 for (i_year in years) {
   
   # Uncomment line below for manual testing
-  # i_year <- years[1]
+  #i_year <- years[1]
   
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
     filter(year == i_year)
   
   # for loop across variables
-  # variables <- c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
+  #variables <- c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
   variables <- c("DIC", "ALK")
   
   for (i_variable in variables) {
     
     # Uncomment line below for manual testing
-    # i_variable <- variables[1]
+    #i_variable <- variables[1]
 
     # read list of all files
     file <-
@@ -185,8 +185,7 @@ for (i_year in years) {
       ungroup()
     
     # subsetted interpolated values at observation depth
-    model_obs_interpo <-
-      inner_join(obs_depth, model_obs_interpo) %>%
+    model_obs_interpo <- inner_join(obs_depth, model_obs_interpo) %>%
       select(-n) %>%
       mutate(year = as.numeric(i_year)) 
     
@@ -198,31 +197,57 @@ for (i_year in years) {
     GLODAP <- left_join(GLODAP, model_obs_interpo)
     
     # calculate annual average variable
-    variable_data_tibble_annual_average <-
-      variable_data_tibble %>%
-      group_by(lat, lon, depth) %>%
-      summarise(!!sym(i_variable) := mean(!!sym(i_variable))) %>% 
-      ungroup()
+    variable_data_tibble_annual_average <- variable_data_tibble %>%
+      fselect(-month) %>%
+      fgroup_by(lat, lon, depth) %>% {
+        add_vars(
+          fgroup_vars(., "unique"),
+          fmean(., keep.group_vars = FALSE)
+        )
+      }
     
     # select surface annual average variable
     variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
       filter(depth == min(depth))
     
-    
     # surface map of variable
     print(
-    surface_GLODAP(
-      variable_data_tibble_annual_average_surface,
-      obs_depth,
-      model_obs_interpo,
-      i_variable
-    )
+      surface_GLODAP(
+        variable_data_tibble_annual_average_surface,
+        obs_depth,
+        model_obs_interpo,
+        i_variable
+      )
     )
     # GLODAP with model subset:red point
     # GLODAP without model subset:black point
     
+    # combine annual average model file together
+    if (exists("annual_average_variable")) {
+      annual_average_variable <-
+        left_join(annual_average_variable, variable_data_tibble_annual_average)
+    }
+    
+    if (!exists("annual_average_variable")) {
+      annual_average_variable <- variable_data_tibble_annual_average
+    }
+    
   }
+  
+  # write file for annually averaged model field
+  annual_average_variable %>%
+    write_csv(here::here(
+      "data",
+      paste(i_year, "_", "annual_average_variables.csv", sep = "")
+    ))
+  
+  rm(annual_average_variable)
+  
 }
 
-```
+# write file for GLODAP observations + subsetted model variables
+GLODAP %>%
+  write_csv(here::here("data",
+                       "GLODAP_with_model_subset.csv"))
 
+```
