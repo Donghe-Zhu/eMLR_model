@@ -547,16 +547,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreebea72190544237a357d0b71b57a8f33c8bc8dea3targetblankbea7219a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/bea72190544237a357d0b71b57a8f33c8bc8dea3" target="_blank">bea7219</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree627bd7bd72b7a8c43d3a325068fefe043f980c29targetblank627bd7ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/627bd7bd72b7a8c43d3a325068fefe043f980c29" target="_blank">627bd7b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreebea72190544237a357d0b71b57a8f33c8bc8dea3targetblankbea7219a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree627bd7bd72b7a8c43d3a325068fefe043f980c29targetblank627bd7ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/bea72190544237a357d0b71b57a8f33c8bc8dea3" target="_blank">bea7219</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/627bd7bd72b7a8c43d3a325068fefe043f980c29" target="_blank">627bd7b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -607,6 +607,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/627bd7bd72b7a8c43d3a325068fefe043f980c29/analysis/eMLR_model_loop.Rmd" target="_blank">627bd7b</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+local rebuild - jens
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/740a6cbd0aafa5fd1816047d8277254ee0da33eb/docs/eMLR_model_loop.html" target="_blank">740a6cb</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -764,43 +798,39 @@ library(lubridate)</code></pre>
 <h1><span class="header-section-number">2</span> Subset model data according to GLODAP observation since 1982</h1>
 <div id="regridded-variable-forcing-model-data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Regridded variable forcing model data</h2>
-<pre class="r"><code># for loop across years
+<pre class="r"><code># set path to model output files
+path_model_regridded &lt;-
+  &quot;/net/kryo/work/loher/CESM_output/RECCAP2/regridded/&quot;
+
+# set name of modelled to be subsetted
+model_ID &lt;- &quot;GIAF_JRA_2020&quot;
+
+# for loop across years
 #years &lt;- c(&quot;1982&quot;:&quot;2019&quot;)
 years &lt;- c(&quot;2007&quot;:&quot;2008&quot;)
 
 for (i_year in years) {
   
-  # i_year &lt;- years[1]
+  i_year &lt;- years[1]
   
   # select GLODAP data for that year
   GLODAP_year &lt;- GLODAP %&gt;%
     filter(year == i_year)
   
-  # create month x lat x lon grid of observations
-  grid_subset &lt;- GLODAP_year %&gt;%
-    select(month, lat, lon) %&gt;%
-    unique()
-  
   # for loop across variables
   # variables &lt;- c(&quot;DIC&quot;, &quot;ALK&quot;, &quot;O2&quot;, &quot;NO3&quot;, &quot;PO4&quot;, &quot;SiO3&quot;, &quot;SALT&quot;, &quot;TEMP&quot;)
   variables &lt;- c(&quot;DIC&quot;, &quot;ALK&quot;)
   
-  # i_variable &lt;- variables[1]
-  
   for (i_variable in variables) {
-    # set path to model output files
-    path_model_regridded &lt;-
-      &quot;/net/kryo/work/loher/CESM_output/RECCAP2/regridded/&quot;
     
+    i_variable &lt;- variables[1]
+
     # read list of all files
-    file_list &lt;-
+    file &lt;-
       list.files(path = path_model_regridded,
-                 pattern = paste(&quot;*&quot;, i_variable, &quot;_&quot;, i_year, &quot;.nc&quot;, sep = &quot;&quot;))
-    print(file_list)
-    
-    # select item out of file_list
-    file &lt;- file_list[2]
-    
+                 pattern = paste(model_ID,&quot;_&quot;, i_variable, &quot;_&quot;, i_year, &quot;.nc&quot;, sep = &quot;&quot;))
+    print(file)
+
     # read in data
     variable_data &lt;-
       read_ncdf(paste(path_model_regridded,
@@ -811,6 +841,14 @@ for (i_year in years) {
     variable_data_tibble &lt;- variable_data %&gt;%
       as_tibble()
     
+    # remove open link to nc file
+    rm(variable_data)
+    
+    # remove na values -&gt; do this early, to speed up subsequent tasks
+    variable_data_tibble &lt;-
+      variable_data_tibble %&gt;%
+      filter(!is.na(!!sym(i_variable)))
+    
     # convert longitudes
     variable_data_tibble &lt;- variable_data_tibble %&gt;%
       mutate(lon = if_else(lon &lt; 20, lon + 360, lon))
@@ -818,29 +856,33 @@ for (i_year in years) {
     # mutate variables and filter NaN value
     variable_data_tibble &lt;- variable_data_tibble %&gt;%
       rename(depth = z_t) %&gt;%
-      mutate(depth = depth / 100, month = month(time)) %&gt;%
-      mutate(!!sym(i_variable) := as.numeric(!!sym(i_variable))) %&gt;%
+      mutate(depth = depth / 100,
+             month = month(time),
+             !!sym(i_variable) := as.numeric(!!sym(i_variable))) %&gt;%
       select(-time)
     
-    # select data included in basinmask
-    variable_data_tibble &lt;-
-      inner_join(variable_data_tibble, basinmask)
-    
+    # select data included in basinmask -&gt; do not apply before subsetting, because we also want to subset data outside the basin mask (eg Arctic region)
+    # variable_data_tibble &lt;-
+    #   inner_join(variable_data_tibble, basinmask)
+
     # calculate annual average variable
     variable_data_tibble_annual_average &lt;-
       variable_data_tibble %&gt;%
-      filter(!is.na(!!sym(i_variable))) %&gt;%
-      group_by(lat, lon, depth, basin_AIP) %&gt;%
+      group_by(lat, lon, depth) %&gt;%
       summarise(!!sym(i_variable) := mean(!!sym(i_variable)))
     
     # select surface annual average variable
     variable_data_tibble_annual_average_surface &lt;- variable_data_tibble_annual_average %&gt;%
       filter(depth == 5)
     
+    # create month x lat x lon grid of observations
+    grid_subset &lt;- GLODAP_year %&gt;%
+      select(month, lat, lon) %&gt;%
+      unique()
+
     # subset model at month x lat x lon grid of observations
     model_subset &lt;-
-      inner_join(grid_subset, variable_data_tibble) %&gt;%
-      select(-basin_AIP)
+      inner_join(grid_subset, variable_data_tibble)
     
     # add observation depth to model depth and conduct interpolation
     obs_depth &lt;- GLODAP_year %&gt;%
@@ -881,8 +923,7 @@ for (i_year in years) {
     
   }
 }</code></pre>
-<pre><code>[1] &quot;GECO_NYF_cstCO2_DIC_2007.nc&quot; &quot;GIAF_JRA_2020_DIC_2007.nc&quot;  
-[3] &quot;RECCAP2_RunC_DIC_2007.nc&quot;   </code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-1">
@@ -932,8 +973,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GECO_NYF_cstCO2_ALK_2007.nc&quot; &quot;GIAF_JRA_2020_ALK_2007.nc&quot;  
-[3] &quot;RECCAP2_RunC_ALK_2007.nc&quot;   </code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-2">
@@ -983,8 +1023,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GECO_NYF_cstCO2_DIC_2008.nc&quot; &quot;GIAF_JRA_2020_DIC_2008.nc&quot;  
-[3] &quot;RECCAP2_RunC_DIC_2008.nc&quot;   </code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-3">
@@ -1034,8 +1073,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<pre><code>[1] &quot;GECO_NYF_cstCO2_ALK_2008.nc&quot; &quot;GIAF_JRA_2020_ALK_2008.nc&quot;  
-[3] &quot;RECCAP2_RunC_ALK_2008.nc&quot;   </code></pre>
+<pre><code>[1] &quot;GIAF_JRA_2020_DIC_2007.nc&quot;</code></pre>
 <p><img src="figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-4.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-subset_regridded_variable_forcing_data-4">
