@@ -23,6 +23,12 @@ library(tidyverse)
 library(lubridate)
 ```
 
+```{r read_parameters, include = FALSE}
+parameters <-
+  read_rds(here::here("data",
+                       "parameters.rds"))
+```
+
 ```{r ggplot_theme, include = FALSE}
 theme_set(theme_bw())
 ```
@@ -76,13 +82,13 @@ GLODAP <- GLODAP  %>%
 
 # remove irrelevant columns
 GLODAP <- GLODAP %>%
-  select(-c(cruise:cast, day:minute, bottomdepth, pressure, theta, aou, aouf, 
+  select(-c(cruise:cast, day:minute, bottomdepth, pressure,
             maxsampdepth, bottle, sigma0:sigma4,
             nitrite:nitritef))
 
 # select relevant years and filter tco2 NaN
 GLODAP <- GLODAP %>%
-  filter(year >= 1982) %>%
+  filter(year >= parameters$year_start) %>%
   filter(!is.na(tco2))
 
 # regrid to 1*1 intervals

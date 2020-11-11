@@ -42,7 +42,8 @@ parameters <-
     lon_Pac_section = 189.5,
     lon_middle = 50.5,
     lat_max = 65,
-    lat_min = -85
+    lat_min = -85,
+    year_start = 1982
   ) 
 
 parameters
@@ -56,8 +57,6 @@ parameters
 parameters %>%
   write_rds(here::here("data",
                        "parameters.rds"))
-
-rm(list = ls())
 
 ```
 

@@ -78,8 +78,7 @@ landmask <- landmask %>%
 
 landmask <- landmask %>%
   filter(region == "land", 
-         lat >= parameters$lat_min,
-         lat <= parameters$lat_max) %>% 
+         lat >= parameters$lat_min) %>% 
   select(-region)
 
 rm(landsea_01)
