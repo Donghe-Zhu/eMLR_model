@@ -192,11 +192,13 @@ for (i_year in years) {
     GLODAP <- left_join(GLODAP, model_subset_interpo)
     
     # surface map of variable
+    print(
     surface_GLODAP(
       variable_data_tibble_annual_average_surface,
       obs_depth,
       model_subset_interpo,
       i_variable
+    )
     )
     # GLODAP with model subset:red point
     # GLODAP without model subset:black point
