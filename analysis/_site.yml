@@ -12,9 +12,9 @@ navbar:
     - text: Masks
       href: config_masks.html
   - text: Read GLODAPv2
-  - href: read_GLODAP_data.html
+    href: read_GLODAP_data.html
   - text: Model
-  - href: eMLR_model_loop.html
+    href: eMLR_model_loop.html
   right:
   - icon: fa-github
     text: Source code

@@ -119,10 +119,13 @@ wflow_publish(here::here(
   "analysis",
   c(
     "index.Rmd",
-    "read_model_data.Rmd"
+    "config_masks.Rmd",
+    "config_parameterization.Rmd",
+    "read_GLODAP_data.Rmd",
+    "eMLR_model_loop.Rmd"
   )
 ),
-message = "XXX",
+message = "local rebuild - jens",
 republish = TRUE)
 
 
