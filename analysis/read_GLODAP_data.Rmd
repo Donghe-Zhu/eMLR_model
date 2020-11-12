@@ -36,7 +36,7 @@ theme_set(theme_bw())
 
 # Read GLODAPv2 2020 with relevant variables
 
-```{r read_GLODAP_csv}
+```{r read_GLODAP}
 
 # set path to GLODAP files
 path_GLODAP <- "/net/kryo/work/updata/glodapv2_2020/"
@@ -59,6 +59,10 @@ GLODAP <-
     col_types = cols(.default = col_double())
   )
 
+```
+
+```{r convert_variable_columns}
+
 # select relevant columns
 GLODAP <- GLODAP %>%
   select(cruise:talkqc)
@@ -73,6 +77,10 @@ GLODAP <- GLODAP %>%
 GLODAP <- GLODAP  %>%
   rename(sal = salinity,
          tem = temperature)
+
+```
+
+```{r clean_GLODAP}
 
 # harmonize coordinates
 GLODAP <- GLODAP  %>%
