@@ -125,11 +125,11 @@ wflow_publish(here::here(
     "eMLR_model_loop.Rmd"
   )
 ),
-message = "local rebuild - jens",
+message = "local rebuild",
 republish = TRUE)
 
 
 
 # Push latest version to GitHub
 wflow_git_push()
-jens-daniel-mueller
+Donghe-Zhu
