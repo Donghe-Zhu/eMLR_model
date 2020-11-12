@@ -431,7 +431,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">eMLR model loop</h1>
 <h4 class="author">Donghe Zhu and Dr Jens Daniel Müller</h4>
-<h4 class="date">11 November, 2020</h4>
+<h4 class="date">12 November, 2020</h4>
 
 </div>
 
@@ -456,7 +456,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-11
+<strong>Last updated:</strong> 2020-11-12
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -547,29 +547,27 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree3b8a671afcd65a8ed7b87f2bf1831592067235d6targetblank3b8a671a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/3b8a671afcd65a8ed7b87f2bf1831592067235d6" target="_blank">3b8a671</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreed78e1b0a74e0e5a6bcf17c31f573975137569777targetblankd78e1b0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/d78e1b0a74e0e5a6bcf17c31f573975137569777" target="_blank">d78e1b0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree3b8a671afcd65a8ed7b87f2bf1831592067235d6targetblank3b8a671a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreed78e1b0a74e0e5a6bcf17c31f573975137569777targetblankd78e1b0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/3b8a671afcd65a8ed7b87f2bf1831592067235d6" target="_blank">3b8a671</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/d78e1b0a74e0e5a6bcf17c31f573975137569777" target="_blank">d78e1b0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    data/GLODAPv2_2020/
     Ignored:    data/World_Ocean_Atlas_2018/
-
-Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   code/Workflowr_project_managment_jdm.R
-    Modified:   code/plotting_functions.R
+    Ignored:    data/annual_average_model_output/
 
 </code></pre>
 <p>
@@ -608,6 +606,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/d78e1b0a74e0e5a6bcf17c31f573975137569777/analysis/eMLR_model_loop.Rmd" target="_blank">d78e1b0</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-12
+</td>
+<td>
+checked writing to file
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/db7ffa3fa81339111b6a050248c309f830a320f9/docs/eMLR_model_loop.html" target="_blank">db7ffa3</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -915,7 +947,7 @@ years &lt;- c(&quot;1982&quot;:&quot;1983&quot;)
 for (i_year in years) {
   
   # Uncomment line below for manual testing
-  #i_year &lt;- years[1]
+  # i_year &lt;- years[1]
   
   # select GLODAP data for that year
   GLODAP_year &lt;- GLODAP %&gt;%
@@ -928,7 +960,7 @@ for (i_year in years) {
   for (i_variable in variables) {
     
     # Uncomment line below for manual testing
-    #i_variable &lt;- variables[1]
+    # i_variable &lt;- variables[2]
 
     # read list of all files
     file &lt;-
@@ -1021,7 +1053,8 @@ for (i_year in years) {
     
     # select surface annual average variable
     variable_data_tibble_annual_average_surface &lt;- variable_data_tibble_annual_average %&gt;%
-      filter(depth == min(depth))
+      filter(depth == min(depth)) %&gt;% 
+      select(-depth)
     
     # surface map of variable
     print(
@@ -1050,7 +1083,7 @@ for (i_year in years) {
   # write file for annually averaged model field
   annual_average_variable %&gt;%
     write_csv(here::here(
-      &quot;data&quot;,
+      paste(&quot;data/annual_average_model_output/&quot;,model_ID, sep = &quot;&quot;),
       paste(i_year, &quot;_&quot;, &quot;annual_average_variables.csv&quot;, sep = &quot;&quot;)
     ))
   
@@ -1081,6 +1114,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/db7ffa3fa81339111b6a050248c309f830a320f9/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-1.png" target="_blank">db7ffa3</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/fbaed329dba814279a74179da49e78b6fa16568c/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-1.png" target="_blank">fbaed32</a>
@@ -1142,6 +1186,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/db7ffa3fa81339111b6a050248c309f830a320f9/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-2.png" target="_blank">db7ffa3</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/fd9041dedb9e81cc5528cfead2875ef22ec317f6/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-2.png" target="_blank">fd9041d</a>
@@ -1216,6 +1271,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/db7ffa3fa81339111b6a050248c309f830a320f9/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-3.png" target="_blank">db7ffa3</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/fd9041dedb9e81cc5528cfead2875ef22ec317f6/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-3.png" target="_blank">fd9041d</a>
 </td>
 <td>
@@ -1288,6 +1354,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/db7ffa3fa81339111b6a050248c309f830a320f9/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-4.png" target="_blank">db7ffa3</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/fd9041dedb9e81cc5528cfead2875ef22ec317f6/docs/figure/eMLR_model_loop.Rmd/subset_regridded_variable_forcing_data-4.png" target="_blank">fd9041d</a>
 </td>
 <td>
@@ -1336,7 +1413,7 @@ jens-daniel-mueller
 </div>
 <pre class="r"><code># write file for GLODAP observations + subsetted model variables
 GLODAP %&gt;%
-  write_csv(here::here(&quot;data&quot;,
+  write_csv(here::here(&quot;data/GLODAPv2_2020&quot;,
                        &quot;GLODAP_with_model_subset.csv&quot;))</code></pre>
 <br>
 <p>
