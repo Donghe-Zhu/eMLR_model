@@ -102,7 +102,7 @@ years <- c("1982":"1983")
 for (i_year in years) {
   
   # Uncomment line below for manual testing
-  #i_year <- years[1]
+  # i_year <- years[1]
   
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
@@ -115,7 +115,7 @@ for (i_year in years) {
   for (i_variable in variables) {
     
     # Uncomment line below for manual testing
-    #i_variable <- variables[1]
+    # i_variable <- variables[2]
 
     # read list of all files
     file <-
@@ -208,7 +208,8 @@ for (i_year in years) {
     
     # select surface annual average variable
     variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
-      filter(depth == min(depth))
+      filter(depth == min(depth)) %>% 
+      select(-depth)
     
     # surface map of variable
     print(
@@ -237,7 +238,7 @@ for (i_year in years) {
   # write file for annually averaged model field
   annual_average_variable %>%
     write_csv(here::here(
-      "data",
+      paste("data/annual_average_model_output/",model_ID, sep = ""),
       paste(i_year, "_", "annual_average_variables.csv", sep = "")
     ))
   
@@ -247,7 +248,7 @@ for (i_year in years) {
 
 # write file for GLODAP observations + subsetted model variables
 GLODAP %>%
-  write_csv(here::here("data",
+  write_csv(here::here("data/GLODAPv2_2020",
                        "GLODAP_with_model_subset.csv"))
 
 ```
