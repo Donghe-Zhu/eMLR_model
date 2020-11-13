@@ -23,6 +23,7 @@ library(patchwork)
 library(stars)
 library(collapse)
 library(lubridate)
+library(rqdatatable)
 ```
 
 ```{r read_parameters, include = FALSE}
@@ -196,7 +197,7 @@ for (i_year in years) {
       rename(!!sym(paste(i_variable,"model",sep = "_")) := !!sym(i_variable))
     
     # add model subset to GLODAP
-    GLODAP <- left_join(GLODAP, model_obs_interpo, na.replace = TRUE)
+    GLODAP <- natural_join(GLODAP, model_obs_interpo, by = c("year", "month", "lat", "lon", "depth"), jointype = "FULL")
     
     # calculate annual average variable
     variable_data_tibble_annual_average <- variable_data_tibble %>%
