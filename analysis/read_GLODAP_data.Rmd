@@ -108,7 +108,7 @@ GLODAP <- GLODAP %>%
 
 # write file
 GLODAP %>%
-  write_csv(here::here("data",
+  write_csv(here::here("data/GLODAPv2_2020",
                        "GLODAPv2.2020_Merged_clean.csv"))
 
 ```

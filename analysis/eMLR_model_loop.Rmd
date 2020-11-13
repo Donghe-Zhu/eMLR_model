@@ -77,7 +77,7 @@ theme_set(theme_bw())
 
 ```{r read_GLODAP_clean_data}
 
-GLODAP <- read_csv(here::here("data",
+GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
                        "GLODAPv2.2020_Merged_clean.csv"))
 
 ```
@@ -103,7 +103,7 @@ years <- c("1982":"1983")
 for (i_year in years) {
   
   # Uncomment line below for manual testing
-  #i_year <- years[1]
+  # i_year <- years[1]
   
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
@@ -125,7 +125,7 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     # Uncomment line below for manual testing
-    #i_variable <- variables[1]
+    # i_variable <- variables[1]
     
     # read list of all files
     file <-
@@ -165,6 +165,25 @@ for (i_year in years) {
         month = month(time),!!sym(i_variable) := as.numeric(!!sym(i_variable))
       ) %>%
       select(-time)
+    
+    # calculate model summary stats
+    
+    stats <- variable_data_tibble %>%
+      pull(!!sym(i_variable)) %>%
+      summary()
+    
+    stats <- c(year = i_year, variable = i_variable, stats)
+    
+    if (exists("stats_summary")) {
+      stats_summary <- bind_rows(stats_summary, stats)
+    }
+    
+    if (!exists("stats_summary")) {
+      stats_summary <- stats
+    }
+    
+    rm(stats)
+    
     
     # subset model at month x lat x lon grid of observations
     model_subset <-
@@ -214,14 +233,18 @@ for (i_year in years) {
       filter(depth == min(depth))
     
     # surface map of variable
-    print(
-      surface_GLODAP(
-        variable_data_tibble_annual_average_surface,
-        obs_depth,
-        model_obs_interpo,
-        i_variable
-      )
+    surface_GLODAP(
+      variable_data_tibble_annual_average_surface,
+      obs_depth,
+      model_obs_interpo,
+      i_variable
     )
+    
+    ggsave(here::here("output/model_subsetting/surface_model_GLODAP_obs",
+                      paste(i_variable,"_",i_year,".png", sep = "")),
+           width = 5,
+           height = 3)
+    
     # GLODAP with model subset:red point
     # GLODAP without model subset:black point
     
@@ -230,7 +253,7 @@ for (i_year in years) {
       
       # write file for annually averaged model field
       variable_data_tibble_annual_average %>%
-        write_csv(here::here("data",
+        write_csv(here::here(paste("data/model/",model_ID, sep = ""),
                              paste("DIC_annual_average_", i_year, ".csv", sep = "")))
       
     }
@@ -241,8 +264,13 @@ for (i_year in years) {
 
 # write file for GLODAP observations + subsetted model variables
 GLODAP %>%
-  write_csv(here::here("data",
+  write_csv(here::here("data/GLODAPv2_2020",
                        "GLODAP_with_model_subset.csv"))
+
+# write file for model summary statistics
+stats_summary %>%
+  write_csv(here::here("data/model/summary_stats",
+                       paste(model_ID,"summary_stats.csv", sep = "_")))
 
 
 #################### test for interpolation
