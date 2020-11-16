@@ -1,0 +1,161 @@
+---
+title: "Observation and model variables comparison"
+author: "Donghe Zhu and Dr Jens Daniel Müller"
+date:  "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  workflowr::wflow_html:
+    number_sections: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+editor_options:
+  chunk_output_type: console
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+```{r library, message = FALSE, warning = FALSE}
+library(tidyverse)
+```
+
+```{r ggplot_theme, include = FALSE}
+# ggplot theme for all plots
+theme_set(theme_bw())
+```
+
+
+# Read GLODAP clean data
+
+```{r read_GLODAP_with_model_subset_data}
+
+GLODAP_model <- read_csv(here::here("data/GLODAPv2_2020",
+                       "GLODAP_with_model_subset.csv"))
+
+```
+
+
+# Observation and model data comparison
+
+## All years field
+
+```{r all_years_comparison}
+
+# for loop across variables
+obs_var <-
+  c("tco2",
+    "talk",
+    "oxygen",
+    "nitrate",
+    "phosphate",
+    "silicate",
+    "sal",
+    "tem")
+model_var <-
+  c(
+    "DIC_model",
+    "ALK_model",
+    "O2_model",
+    "NO3_model",
+    "PO4_model",
+    "SiO3_model",
+    "SALT_model",
+    "TEMP_model"
+  )
+
+# too many figures, here instead of length(obs_var), just use the first two.
+for (i in 1:2) {
+  # Uncomment line below for manual testing
+  # i <- 1
+  
+  # select correlated observation and model variable
+  variable_all <- GLODAP_model %>%
+    select(year,
+           month,
+           lat,
+           lon,
+           depth,!!sym(obs_var[i]),!!sym(model_var[i])) %>%
+    drop_na() %>%
+    mutate(
+      season = case_when(
+        month %in% c(3, 4, 5) ~ "Spring",
+        month %in% c(6, 7, 8) ~ "Summer",
+        month %in% c(9, 10, 11) ~ "Autumn",
+        month %in% c(12, 1, 2) ~ "Winter",
+      )
+    ) %>%
+    # separate 1982:2018 to 12 intervals for better display
+    mutate(
+      interval = case_when(
+        year %in% 1982:1984 ~ 1,
+        year %in% 1985:1987 ~ 2,
+        year %in% 1988:1990 ~ 3,
+        year %in% 1991:1993 ~ 4,
+        year %in% 1994:1996 ~ 5,
+        year %in% 1997:1999 ~ 6,
+        year %in% 2000:2002 ~ 7,
+        year %in% 2003:2005 ~ 8,
+        year %in% 2006:2008 ~ 9,
+        year %in% 2009:2011 ~ 10,
+        year %in% 2012:2014 ~ 11,
+        year %in% 2015:2018 ~ 12,
+      )
+    )
+  
+  # obs-model plot (season)
+  variable_all %>%
+    ggplot(aes(
+      x = !!sym(obs_var[i]),
+      y = !!sym(model_var[i]),
+      color = as.factor(season)
+    )) +
+    geom_point(size = 1) +
+    xlab(sym(obs_var[i])) +
+    ylab(sym(model_var[i])) +
+    geom_abline(slope = 1, col = "red")  +
+    ggtitle("Observation vs Model Seasonal Comparison") +
+    theme_grey(base_size = 15)
+  
+  ggsave(
+    here::here(
+      "output/model_subsetting/observation_model_comparison/season",
+      paste(obs_var[i], "_", model_var[i], ".png", sep = "")
+    ),
+    width = 5,
+    height = 3
+  )
+  
+  for (j in 1:12) {
+    variable_int <- variable_all %>%
+      filter(interval == j)
+    
+    # obs-model plot (year)
+    variable_int %>%
+      ggplot(aes(
+        x = !!sym(obs_var[i]),
+        y = !!sym(model_var[i]),
+        color = as.factor(year)
+      )) +
+      geom_point(size = 1) +
+      xlab(sym(obs_var[i])) +
+      ylab(sym(model_var[i])) +
+      geom_abline(slope = 1, col = "black")  +
+      theme_grey(base_size = 15)
+    
+    ggsave(
+      here::here(
+        "output/model_subsetting/observation_model_comparison/year",
+        paste(obs_var[i], "_", model_var[i], "_", j, ".png", sep = "")
+      ),
+      width = 5,
+      height = 3
+    )
+    
+  }
+  
+}
+
+```
+

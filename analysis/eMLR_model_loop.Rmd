@@ -78,14 +78,12 @@ theme_set(theme_bw())
 ```{r read_GLODAP_clean_data}
 
 GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
-                       "GLODAPv2.2020_Merged_clean.csv"))
+                              "GLODAPv2.2020_Merged_clean.csv"))
 
 ```
 
 
-# Subset model data according to GLODAP observation since 1982
-
-## Regridded variable forcing model data
+# Subset regridded variable forcing model data according to GLODAP observation since 1982
 
 ```{r subset_regridded_variable_forcing_data}
 
@@ -97,12 +95,11 @@ path_model_regridded <-
 model_ID <- "GIAF_JRA_2020"
 
 # for loop across years
-#years <- c("1982":"2019")
-years <- c("1982":"1983")
+years <- c("1982":"2018")
+# years <- c("1982":"1983")
 
 for (i_year in years) {
-  
-  # Uncomment line below for manual testing
+  # for manual testing
   # i_year <- years[1]
   
   # select GLODAP data for that year
@@ -110,8 +107,9 @@ for (i_year in years) {
     filter(year == i_year)
   
   # for loop across variables
-  #variables <- c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
-  variables <- c("DIC", "ALK")
+  variables <-
+    c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
+  # variables <- c("DIC", "ALK")
   
   # create month x lat x lon grid of observations
   grid_subset <- GLODAP_year %>%
@@ -167,7 +165,6 @@ for (i_year in years) {
       select(-time)
     
     # calculate model summary stats
-    
     stats <- variable_data_tibble %>%
       pull(!!sym(i_variable)) %>%
       summary()
@@ -184,7 +181,6 @@ for (i_year in years) {
     
     rm(stats)
     
-    
     # subset model at month x lat x lon grid of observations
     model_subset <-
       inner_join(grid_subset, variable_data_tibble)
@@ -197,39 +193,45 @@ for (i_year in years) {
       group_by(month, lat, lon) %>%
       mutate(n = sum(!is.na(!!sym(i_variable)))) %>%
       ungroup()
-
+    
     # interpolate variable value from model to observation depth
     model_obs_interpo <- model_obs %>%
       filter(n > 1) %>%
       group_by(lon, lat, month) %>%
       arrange(depth) %>%
-      mutate(!!sym(i_variable) := approxfun(depth, !!sym(i_variable), rule = 2)(depth)) %>%
+      mutate(!!sym(i_variable) := approxfun(depth,!!sym(i_variable), rule = 2)(depth)) %>%
       ungroup()
     
     # subsetted interpolated values at observation depth
-    model_obs_interpo <- inner_join(obs_depth, model_obs_interpo) %>%
+    model_obs_interpo <-
+      inner_join(obs_depth, model_obs_interpo) %>%
       select(-n) %>%
-      mutate(year = as.numeric(i_year)) 
+      mutate(year = as.numeric(i_year))
     
     # rename interpolated model variable to indicate as model output
-    model_obs_interpo <- model_obs_interpo %>% 
-      rename(!!sym(paste(i_variable,"model",sep = "_")) := !!sym(i_variable))
+    model_obs_interpo <- model_obs_interpo %>%
+      rename(!!sym(paste(i_variable, "model", sep = "_")) := !!sym(i_variable))
     
     # add model subset to GLODAP
-    GLODAP <- natural_join(GLODAP, model_obs_interpo, by = c("year", "month", "lat", "lon", "depth"), jointype = "FULL")
+    GLODAP <-
+      natural_join(
+        GLODAP,
+        model_obs_interpo,
+        by = c("year", "month", "lat", "lon", "depth"),
+        jointype = "FULL"
+      )
     
     # calculate annual average variable
     variable_data_tibble_annual_average <- variable_data_tibble %>%
       fselect(-month) %>%
       fgroup_by(lat, lon, depth) %>% {
-        add_vars(
-          fgroup_vars(., "unique"),
-          fmean(., keep.group_vars = FALSE)
-        )
+        add_vars(fgroup_vars(., "unique"),
+                 fmean(., keep.group_vars = FALSE))
       }
     
     # select surface annual average variable
-    variable_data_tibble_annual_average_surface <- variable_data_tibble_annual_average %>%
+    variable_data_tibble_annual_average_surface <-
+      variable_data_tibble_annual_average %>%
       filter(depth == min(depth))
     
     # surface map of variable
@@ -240,21 +242,26 @@ for (i_year in years) {
       i_variable
     )
     
-    ggsave(here::here("output/model_subsetting/surface_model_GLODAP_obs",
-                      paste(i_variable,"_",i_year,".png", sep = "")),
-           width = 5,
-           height = 3)
+    ggsave(
+      here::here(
+        "output/model_subsetting/surface_model_GLODAP_obs",
+        paste(i_variable, "_", i_year, ".png", sep = "")
+      ),
+      width = 5,
+      height = 3
+    )
     
     # GLODAP with model subset:red point
     # GLODAP without model subset:black point
     
     # combine annual average model file together
     if (i_variable == "DIC") {
-      
       # write file for annually averaged model field
       variable_data_tibble_annual_average %>%
-        write_csv(here::here(paste("data/model/",model_ID, sep = ""),
-                             paste("DIC_annual_average_", i_year, ".csv", sep = "")))
+        write_csv(here::here(
+          paste("data/model/", model_ID, sep = ""),
+          paste("DIC_annual_average_", i_year, ".csv", sep = "")
+        ))
       
     }
     
@@ -269,31 +276,37 @@ GLODAP %>%
 
 # write file for model summary statistics
 stats_summary %>%
-  write_csv(here::here("data/model/summary_stats",
-                       paste(model_ID,"summary_stats.csv", sep = "_")))
+  write_csv(here::here(
+    "data/model/summary_stats",
+    paste(model_ID, "summary_stats.csv", sep = "_")
+  ))
 
+```
 
-#################### test for interpolation
+# Test for interpolation
+
+```{r test for interpolation}
+
 # subset model at month x lat x lon grid of observations
-    model_subset <-
-      inner_join(grid_subset, variable_data_tibble)
-    
-    # join model and month x lat x lon x depth grid of observations
-    model_obs <- full_join(model_subset, obs_depth)
-    
-    # calculate nr of observations per month x lat x lon grid
-    model_obs <- model_obs %>%
-      group_by(month, lat, lon) %>%
-      mutate(n = sum(!is.na(!!sym(i_variable)))) %>%
-      ungroup()
+model_subset <-
+  inner_join(grid_subset, variable_data_tibble)
 
-    # interpolate variable value from model to observation depth
-    model_obs_interpo <- model_obs %>%
-      filter(n > 1) %>%
-      group_by(lon, lat, month) %>%
-      arrange(month, lat, lon, depth) %>%
-      mutate(!!sym(paste(i_variable,"interpolate",sep = "_")) := approxfun(depth, !!sym(i_variable), rule = 2)(depth)) %>%
-      ungroup()
+# join model and month x lat x lon x depth grid of observations
+model_obs <- full_join(model_subset, obs_depth)
+
+# calculate nr of observations per month x lat x lon grid
+model_obs <- model_obs %>%
+  group_by(month, lat, lon) %>%
+  mutate(n = sum(!is.na(!!sym(i_variable)))) %>%
+  ungroup()
+
+# interpolate variable value from model to observation depth
+model_obs_interpo <- model_obs %>%
+  filter(n > 1) %>%
+  group_by(lon, lat, month) %>%
+  arrange(month, lat, lon, depth) %>%
+  mutate(!!sym(paste(i_variable, "interpolate", sep = "_")) := approxfun(depth,!!sym(i_variable), rule = 2)(depth)) %>%
+  ungroup()
 
 ggplot() +
   geom_path(
@@ -302,10 +315,12 @@ ggplot() +
       arrange(depth),
     aes(!!sym(i_variable), depth, col = "model")
   ) +
-    geom_point(
+  geom_point(
     data = model_obs_interpo %>%
       filter(lat == 1.5, lon == 316.5, month == 1),
-    aes(!!sym(paste(i_variable, "interpolate", sep = "_")), depth, col = "interpolated")
+    aes(!!sym(
+      paste(i_variable, "interpolate", sep = "_")
+    ), depth, col = "interpolated")
   ) +
   geom_point(
     data = model_obs_interpo %>%
@@ -318,3 +333,134 @@ ggplot() +
   labs(title = paste("Interpolation to sampling depth -", i_variable, "of year", i_year))
 
 ```
+
+# Calculate normal forcing annual average DIC
+
+```{r calculate_normal_forcing_annual_average_DIC}
+
+# set path to model output files
+path_model_regridded <-
+  "/net/kryo/work/loher/CESM_output/RECCAP2/regridded/"
+
+# set name of modelled to be subsetted
+model_ID <- "GECO_NYF_cstCO2"
+
+# for loop across years
+years <- c("1982":"2018")
+# years <- c("1982":"1983")
+
+for (i_year in years) {
+  # for manual testing
+  # i_year <- years[1]
+  
+  # read list of all files
+  file <-
+    list.files(path = path_model_regridded,
+               pattern = paste(model_ID, "_DIC_", i_year, ".nc", sep = ""))
+  print(file)
+  
+  # read in data
+  normal_data <-
+    read_ncdf(paste(path_model_regridded,
+                    file,
+                    sep = ""))
+  
+  # convert to tibble
+  normal_data_tibble <- normal_data %>%
+    as_tibble()
+  
+  # remove open link to nc file
+  rm(normal_data)
+  
+  # remove na values -> do this early, to speed up subsequent tasks
+  normal_data_tibble <-
+    normal_data_tibble %>%
+    filter(!is.na(DIC))
+  
+  # convert longitudes
+  normal_data_tibble <- normal_data_tibble %>%
+    mutate(lon = if_else(lon < 20, lon + 360, lon))
+  
+  # mutate variables and filter NaN value
+  normal_data_tibble <- normal_data_tibble %>%
+    rename(depth = z_t) %>%
+    mutate(depth = depth / 100,
+           month = month(time),
+           DIC = as.numeric(DIC)) %>%
+    select(-time)
+  
+  # calculate annual average DIC
+  normal_data_tibble_annual_average <- normal_data_tibble %>%
+    fselect(-month) %>%
+    fgroup_by(lat, lon, depth) %>% {
+      add_vars(fgroup_vars(., "unique"),
+               fmean(., keep.group_vars = FALSE))
+    }
+  
+  # write file for annually averaged model DIC
+  normal_data_tibble_annual_average %>%
+    write_csv(here::here(
+      paste("data/model/", model_ID, sep = ""),
+      paste("DIC_annual_average_", i_year, ".csv", sep = "")
+    ))
+  
+}
+
+```
+
+## Calculate Cant for year 1994 and 2007
+
+```{r calculate_Cant}
+
+# read in variable and normal forcing DIC data
+years <- c("1994", "2007")
+
+GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
+                              "GLODAPv2.2020_Merged_clean.csv"))
+
+for (i_year in years) {
+  # for manual testing
+  # i_year <- "1994"
+  
+  # read in variable forcing annual average DIC data
+  variable_annual_average_DIC <-
+    read_csv(here::here(
+      "data/model/GIAF_JRA_2020",
+      paste("DIC_annual_average_", i_year, ".csv", sep = "")
+    )) %>%
+    rename(DIC_variable = DIC)
+  
+  # read in normal forcing annual average DIC data
+  normal_annual_average_DIC <-
+    read_csv(here::here(
+      "data/model/GECO_NYF_cstCO2",
+      paste("DIC_annual_average_", i_year, ".csv", sep = "")
+    )) %>%
+    rename(DIC_normal = DIC)
+  
+  # calculate Cant
+  cant <-
+    full_join(variable_annual_average_DIC, normal_annual_average_DIC) %>%
+    mutate(Cant = DIC_variable - DIC_normal)
+  
+  rm(variable_annual_average_DIC, normal_annual_average_DIC)
+  
+  cant <- inner_join(basinmask, cant)
+  
+  # global surface Cant plot
+  print(map_global(cant, "Cant"))
+  
+  # global section Cant plot
+  print(section_global(cant, "Cant"))
+  
+  # zonal section Cant plot
+  for (i_basin_AIP in unique(cant$basin_AIP)) {
+    breaks <- c(seq(-30, 70, 10), Inf)
+    print(section_zonal(cant,
+                        i_basin_AIP = i_basin_AIP,
+                        "Cant"))
+  }
+}
+
+```
+
