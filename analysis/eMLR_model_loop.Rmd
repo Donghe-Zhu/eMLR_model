@@ -85,7 +85,7 @@ GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
 
 # Subset regridded variable forcing model data according to GLODAP observation since 1982
 
-```{r subset_regridded_variable_forcing_data}
+```{r subset_regridded_variable_forcing_data, eval=FALSE}
 
 # set path to model output files
 path_model_regridded <-
@@ -285,7 +285,7 @@ stats_summary %>%
 
 # Test for interpolation
 
-```{r test for interpolation}
+```{r test for interpolation, eval=FALSE}
 
 # subset model at month x lat x lon grid of observations
 model_subset <-
@@ -336,7 +336,7 @@ ggplot() +
 
 # Calculate normal forcing annual average DIC
 
-```{r calculate_normal_forcing_annual_average_DIC}
+```{r calculate_normal_forcing_annual_average_DIC, eval=FALSE}
 
 # set path to model output files
 path_model_regridded <-
