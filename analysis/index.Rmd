@@ -8,4 +8,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+The code contained in this repository is intended to subset and average the output of an ocean model, according to observations contained in the GLODAPv2_2020 data set.
