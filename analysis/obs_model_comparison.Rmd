@@ -162,3 +162,36 @@ for (i in 1:8) {
 
 ```
 
+# Model diagnostics
+
+A set of model summary statistics was calculated for each relevant variable and year.
+
+```{r read_model_summary_stats}
+model_stats <- read_csv(here::here("data/model/summary_stats",
+                       "GIAF_JRA_2020_summary_stats.csv"))
+```
+
+```{r pivot_model_summary_stats}
+
+model_stats_wide <- model_stats %>% 
+  pivot_longer(Min.:Max.,
+               names_to = "estimate",
+               values_to = "value")
+
+```
+
+```{r GIAF_JRA_model_stats, fig.asp=7}
+
+model_stats_wide %>% 
+  ggplot(aes(year, value)) +
+  geom_path() +
+  geom_point() +
+  facet_wrap(~ interaction(estimate, variable),
+             ncol = 1,
+             scales = "free_y")
+
+```
+
+
+
+
