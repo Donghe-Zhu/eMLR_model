@@ -96,7 +96,6 @@ model_ID <- "GIAF_JRA_2020"
 
 # for loop across years
 years <- c("1982":"2018")
-# years <- c("1982":"1983")
 
 for (i_year in years) {
   # for manual testing
@@ -109,7 +108,6 @@ for (i_year in years) {
   # for loop across variables
   variables <-
     c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
-  # variables <- c("DIC", "ALK")
   
   # create month x lat x lon grid of observations
   grid_subset <- GLODAP_year %>%
