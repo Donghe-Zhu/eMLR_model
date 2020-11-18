@@ -122,7 +122,8 @@ wflow_publish(here::here(
     "config_masks.Rmd",
     "config_parameterization.Rmd",
     "read_GLODAP_data.Rmd",
-    "eMLR_model_loop.Rmd"
+    "eMLR_model_loop.Rmd",
+    "obs_model_comparison.Rmd"
   )
 ),
 message = "local rebuild",

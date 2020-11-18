@@ -68,7 +68,7 @@ model_var <-
 # too many figures, here instead of length(obs_var), just use the first two.
 for (i in 1:8) {
   # Uncomment line below for manual testing
-  # i <- 1
+   i <- 1
   
   # select correlated observation and model variable
   variable_all <- GLODAP_model %>%
@@ -89,22 +89,36 @@ for (i in 1:8) {
       )
     )
   
+  axis_lims <- variable_all %>%
+    summarise(
+      max_value = max(c(
+        max(!!sym(obs_var[i])),
+        max(!!sym(model_var[i])))),
+      min_value = min(c(
+        min(!!sym(obs_var[i])),
+        min(!!sym(model_var[i]))))
+      )
+  
+  binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 30
+  axis_lims <- c(axis_lims$min_value, axis_lims$max_value)
+
+  
   # obs-model plot (season)
   print(
     ggplot(variable_all, aes(
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
-      geom_bin2d() +
+      geom_bin2d(binwidth = binwidth_value) +
       labs(
-        x = sym(obs_var[i]),
-        y = sym(model_var[i]),
-        title = "Observation vs Model Seasonal Comparison"
+        title = "Observation (x) vs Model (y)",
+        subtitle = "Seasonal comparison"
       ) +
-      scale_fill_gradient(low = 'gray', high = 'blue') +
-      geom_abline(slope = 1, col = 'red') +
-      coord_equal() +
-      theme_classic() +
+      scale_fill_viridis_c() +
+      geom_abline(slope = 1,
+                  col = 'red') +
+      coord_equal(xlim = axis_lims,
+                  ylim = axis_lims) +
       facet_wrap( ~ season)
   )
   
@@ -114,16 +128,15 @@ for (i in 1:8) {
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
-      geom_bin2d() +
+      geom_bin2d(binwidth = binwidth_value) +
       labs(
-        x = sym(obs_var[i]),
-        y = sym(model_var[i]),
-        title = "Observation vs Model All Years Comparison"
+        title = "Observation (x) vs Model (y)",
+        subtitle = "All years"
       ) +
-      scale_fill_gradient(low = 'gray', high = 'blue') +
+      scale_fill_viridis_c() +
       geom_abline(slope = 1, col = 'red') +
-      coord_equal() +
-      theme_classic()
+      coord_equal(xlim = axis_lims,
+                  ylim = axis_lims)
   )
   
 }
