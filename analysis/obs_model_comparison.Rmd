@@ -27,7 +27,7 @@ theme_set(theme_bw())
 ```
 
 
-# Read GLODAP clean data
+# Read joined GLODAP + model data
 
 ```{r read_GLODAP_with_model_subset_data}
 
@@ -38,8 +38,6 @@ GLODAP_model <- read_csv(here::here("data/GLODAPv2_2020",
 
 
 # Observation and model data comparison
-
-## All years field
 
 ```{r all_years_comparison}
 
@@ -151,13 +149,15 @@ for (i in 1:8) {
     ungroup()
   
   # plot annual mean offset
-  variable_year %>% 
-    ggplot(aes(year, offset)) +
-    geom_point() +
-    geom_line() +
-    labs(title = "Annual mean offset",
-         subtitle = paste( sym(model_var[i]), "-", sym(obs_var[i]) ))+
-    coord_fixed(ratio = 0.3)
+  print(
+    variable_year %>%
+      ggplot(aes(year, offset)) +
+      geom_point() +
+      geom_line() +
+      labs(title = "Annual mean offset",
+           subtitle = paste(sym(model_var[i]), "-", sym(obs_var[i]))) +
+      coord_fixed(ratio = 0.3)
+  )
       
 }
 
