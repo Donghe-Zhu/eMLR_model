@@ -155,8 +155,7 @@ for (i in 1:8) {
       geom_point() +
       geom_line() +
       labs(title = "Annual mean offset",
-           subtitle = paste(sym(model_var[i]), "-", sym(obs_var[i]))) +
-      coord_fixed(ratio = 0.3)
+           subtitle = paste(sym(model_var[i]), "-", sym(obs_var[i])))
   )
       
 }
