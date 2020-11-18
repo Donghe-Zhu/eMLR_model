@@ -68,7 +68,7 @@ model_var <-
 # too many figures, here instead of length(obs_var), just use the first two.
 for (i in 1:8) {
   # Uncomment line below for manual testing
-   i <- 1
+  # i <- 1
   
   # select correlated observation and model variable
   variable_all <- GLODAP_model %>%
@@ -89,6 +89,7 @@ for (i in 1:8) {
       )
     )
   
+  # calculate equal axis limits and binwidth
   axis_lims <- variable_all %>%
     summarise(
       max_value = max(c(
