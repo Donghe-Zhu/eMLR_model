@@ -123,6 +123,7 @@ wflow_publish(here::here(
     "config_parameterization.Rmd",
     "read_GLODAP_data.Rmd",
     "eMLR_model_loop.Rmd",
+    "read_model_data.Rmd",
     "obs_model_comparison.Rmd"
   )
 ),
@@ -134,3 +135,4 @@ republish = TRUE)
 # Push latest version to GitHub
 wflow_git_push()
 Donghe-Zhu
+jens-daniel-mueller

@@ -11,10 +11,12 @@ navbar:
       href: config_parameterization.html
     - text: Masks
       href: config_masks.html
-  - text: Read GLODAPv2
-    href: read_GLODAP_data.html
-  - text: Model
-    href: eMLR_model_loop.html
+  - text: Read data
+    menu:
+    - text: GLODAPv2
+      href: read_GLODAP_data.html
+    - text: Model
+      href: read_model_data.html
   - text: Analysis
     href: obs_model_comparison.html
   right:

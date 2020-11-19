@@ -27,7 +27,7 @@ theme_set(theme_bw())
 ```
 
 
-# Read GLODAP clean data
+# Read joined GLODAP + model data
 
 ```{r read_GLODAP_with_model_subset_data}
 
@@ -38,8 +38,6 @@ GLODAP_model <- read_csv(here::here("data/GLODAPv2_2020",
 
 
 # Observation and model data comparison
-
-## All years field
 
 ```{r all_years_comparison}
 
@@ -68,7 +66,7 @@ model_var <-
 # too many figures, here instead of length(obs_var), just use the first two.
 for (i in 1:8) {
   # Uncomment line below for manual testing
-  # i <- 1
+  # i <- 2
   
   # select correlated observation and model variable
   variable_all <- GLODAP_model %>%
@@ -85,9 +83,24 @@ for (i in 1:8) {
         month %in% c(3, 4, 5) ~ "Spring",
         month %in% c(6, 7, 8) ~ "Summer",
         month %in% c(9, 10, 11) ~ "Autumn",
-        month %in% c(12, 1, 2) ~ "Winter",
+        month %in% c(12, 1, 2) ~ "Winter"
       )
     )
+  
+  # calculate equal axis limits and binwidth
+  axis_lims <- variable_all %>%
+    summarise(
+      max_value = max(c(
+        max(!!sym(obs_var[i])),
+        max(!!sym(model_var[i])))),
+      min_value = min(c(
+        min(!!sym(obs_var[i])),
+        min(!!sym(model_var[i]))))
+      )
+  
+  binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 30
+  axis_lims <- c(axis_lims$min_value, axis_lims$max_value)
+
   
   # obs-model plot (season)
   print(
@@ -95,16 +108,16 @@ for (i in 1:8) {
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
-      geom_bin2d() +
+      geom_bin2d(binwidth = binwidth_value) +
       labs(
-        x = sym(obs_var[i]),
-        y = sym(model_var[i]),
-        title = "Observation vs Model Seasonal Comparison"
+        title = "Observation (x) vs Model (y)",
+        subtitle = "Seasonal comparison"
       ) +
-      scale_fill_gradient(low = 'gray', high = 'blue') +
-      geom_abline(slope = 1, col = 'red') +
-      coord_equal() +
-      theme_classic() +
+      scale_fill_viridis_c() +
+      geom_abline(slope = 1,
+                  col = 'red') +
+      coord_equal(xlim = axis_lims,
+                  ylim = axis_lims) +
       facet_wrap( ~ season)
   )
   
@@ -114,19 +127,71 @@ for (i in 1:8) {
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
-      geom_bin2d() +
+      geom_bin2d(binwidth = binwidth_value) +
       labs(
-        x = sym(obs_var[i]),
-        y = sym(model_var[i]),
-        title = "Observation vs Model All Years Comparison"
+        title = "Observation (x) vs Model (y)",
+        subtitle = "All years"
       ) +
-      scale_fill_gradient(low = 'gray', high = 'blue') +
+      scale_fill_viridis_c() +
       geom_abline(slope = 1, col = 'red') +
-      coord_equal() +
-      theme_classic()
+      coord_equal(xlim = axis_lims,
+                  ylim = axis_lims)
   )
   
+  
+  # Calculate annual mean offset
+  variable_year <- GLODAP_model %>%
+    select(year,!!sym(obs_var[i]),!!sym(model_var[i])) %>%
+    drop_na() %>%
+    mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %>%
+    group_by(year) %>%
+    summarise(offset = mean(offset)) %>%
+    ungroup()
+  
+  # plot annual mean offset
+  print(
+    variable_year %>%
+      ggplot(aes(year, offset)) +
+      geom_point() +
+      geom_line() +
+      labs(title = "Annual mean offset",
+           subtitle = paste(sym(model_var[i]), "-", sym(obs_var[i])))
+  )
+      
 }
 
 ```
+
+# Model diagnostics
+
+A set of model summary statistics was calculated for each relevant variable and year.
+
+```{r read_model_summary_stats}
+model_stats <- read_csv(here::here("data/model/summary_stats",
+                       "GIAF_JRA_2020_summary_stats.csv"))
+```
+
+```{r pivot_model_summary_stats}
+
+model_stats_wide <- model_stats %>% 
+  pivot_longer(Min.:Max.,
+               names_to = "estimate",
+               values_to = "value")
+
+```
+
+```{r GIAF_JRA_model_stats, fig.asp=7}
+
+model_stats_wide %>% 
+  ggplot(aes(year, value)) +
+  geom_path() +
+  geom_point() +
+  facet_wrap(~ interaction(estimate, variable),
+             ncol = 1,
+             scales = "free_y")
+
+```
+
+
+
 

@@ -397,11 +397,20 @@ div.tocify {
     </li>
   </ul>
 </li>
-<li>
-  <a href="read_GLODAP_data.html">Read GLODAPv2</a>
-</li>
-<li>
-  <a href="eMLR_model_loop.html">Model</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Read data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="read_GLODAP_data.html">GLODAPv2</a>
+    </li>
+    <li>
+      <a href="read_model_data.html">Model</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="obs_model_comparison.html">Analysis</a>
@@ -550,22 +559,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree046aa108f299571b8f6d6848478f7866cf12175dtargetblank046aa10a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/046aa108f299571b8f6d6848478f7866cf12175d" target="_blank">046aa10</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree599fab5e2f2dfb582e767ac067165f1703de3551targetblank599fab5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/599fab5e2f2dfb582e767ac067165f1703de3551" target="_blank">599fab5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree046aa108f299571b8f6d6848478f7866cf12175dtargetblank046aa10a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree599fab5e2f2dfb582e767ac067165f1703de3551targetblank599fab5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/046aa108f299571b8f6d6848478f7866cf12175d" target="_blank">046aa10</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/599fab5e2f2dfb582e767ac067165f1703de3551" target="_blank">599fab5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    data/GLODAPv2_2020/
     Ignored:    data/World_Ocean_Atlas_2018/
@@ -573,6 +583,8 @@ Ignored files:
     Ignored:    output/model_subsetting/
 
 Unstaged changes:
+    Modified:   analysis/_site.yml
+    Deleted:    analysis/eMLR_model_loop.Rmd
     Modified:   code/Workflowr_project_managment_jdm.R
 
 </code></pre>
@@ -588,7 +600,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/eMLR_model_loop.Rmd</code>) and HTML (<code>docs/eMLR_model_loop.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/read_model_data.Rmd</code>) and HTML (<code>docs/read_model_data.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -617,526 +629,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/046aa108f299571b8f6d6848478f7866cf12175d/analysis/eMLR_model_loop.Rmd" target="_blank">046aa10</a>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/599fab5e2f2dfb582e767ac067165f1703de3551/analysis/read_model_data.Rmd" target="_blank">599fab5</a>
 </td>
 <td>
-Donghe-Zhu
+jens-daniel-mueller
 </td>
 <td>
 2020-11-18
 </td>
 <td>
-change plots
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/52902c118097662ed1acd51dfdad1c8187ab746b/docs/eMLR_model_loop.html" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/0c7dd325d4d2b80067ea671c7791c47d7c3e74bb/analysis/eMLR_model_loop.Rmd" target="_blank">0c7dd32</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-<td>
-obs-model comparison
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/5817a91914b7400c5ea347f91499926a22d5084c/analysis/eMLR_model_loop.Rmd" target="_blank">5817a91</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-16
-</td>
-<td>
-Observation and Model Comparison
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/04a203493553579354ae69dad01a434de93c4e26/docs/eMLR_model_loop.html" target="_blank">04a2034</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/1552c14aff92b44f449ea2a6b687a7880c3dc161/analysis/eMLR_model_loop.Rmd" target="_blank">1552c14</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-13
-</td>
-<td>
-added: model summary statistics, annual surface plot of each variable, subfolders in /data
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/b0c06579bd8ead9a2c0e382af1993435f1bf9f50/docs/eMLR_model_loop.html" target="_blank">b0c0657</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-13
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/f922be88645bb11c90145d4e9e4aa816d28933e6/analysis/eMLR_model_loop.Rmd" target="_blank">f922be8</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-13
-</td>
-<td>
-using natural_join
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/6a37c9e43e2e595b50f60eccb6c71f06ec9b1f8a/docs/eMLR_model_loop.html" target="_blank">6a37c9e</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/7319be0048d79f88915bbc2f9bb976e7574fb8e2/docs/eMLR_model_loop.html" target="_blank">7319be0</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/db905305c679ee31a191ea7f585e665821798b5c/docs/eMLR_model_loop.html" target="_blank">db90530</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/06e3c725b85990a7aecb8670728b9f6703f0e4cd/analysis/eMLR_model_loop.Rmd" target="_blank">06e3c72</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-interpolation test
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/f262279e3712b2d2729920e3bd8ccd98cc8e3879/docs/eMLR_model_loop.html" target="_blank">f262279</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/d78e1b0a74e0e5a6bcf17c31f573975137569777/analysis/eMLR_model_loop.Rmd" target="_blank">d78e1b0</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-12
-</td>
-<td>
-checked writing to file
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/db7ffa3fa81339111b6a050248c309f830a320f9/docs/eMLR_model_loop.html" target="_blank">db7ffa3</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/3b8a671afcd65a8ed7b87f2bf1831592067235d6/analysis/eMLR_model_loop.Rmd" target="_blank">3b8a671</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-local rebuild - Donghe
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/fd9041dedb9e81cc5528cfead2875ef22ec317f6/docs/eMLR_model_loop.html" target="_blank">fd9041d</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/e297770886ef7130057a7e255c9efbeb48049dce/analysis/eMLR_model_loop.Rmd" target="_blank">e297770</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-local rebuild - jens
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/aac9a6447b7d8a8acfb4b99f8bdf844ea2fa08a9/docs/eMLR_model_loop.html" target="_blank">aac9a64</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/8146501ec5dc617c2b7bda22eb5aaedf04b3986c/analysis/eMLR_model_loop.Rmd" target="_blank">8146501</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-local rebuild - jens
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/fbaed329dba814279a74179da49e78b6fa16568c/docs/eMLR_model_loop.html" target="_blank">fbaed32</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/627bd7bd72b7a8c43d3a325068fefe043f980c29/analysis/eMLR_model_loop.Rmd" target="_blank">627bd7b</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-local rebuild - jens
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/740a6cbd0aafa5fd1816047d8277254ee0da33eb/docs/eMLR_model_loop.html" target="_blank">740a6cb</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/bea72190544237a357d0b71b57a8f33c8bc8dea3/docs/eMLR_model_loop.html" target="_blank">bea7219</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/57e4f8646ee8643a5601ed0ff5814bbf36ba7b62/docs/eMLR_model_loop.html" target="_blank">57e4f86</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/791a3510432c48c20df2d7a01bad54f5df0d9692/analysis/eMLR_model_loop.Rmd" target="_blank">791a351</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-rebuild all locally - jens
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/3995dff34f356ac0ff01951c34cf0897b9bac315/docs/eMLR_model_loop.html" target="_blank">3995dff</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/b3cec0cdeb94f71e7221dec8704ec29a59194d6c/analysis/eMLR_model_loop.Rmd" target="_blank">b3cec0c</a>
-</td>
-<td>
-jens-daniel-mueller
-</td>
-<td>
-2020-11-11
-</td>
-<td>
-local publish by jens
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/d313a0f295d708cba1d43d7c75d692215c6b268f/docs/eMLR_model_loop.html" target="_blank">d313a0f</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/c2903fce08499892842de3efbb7c559c67860270/analysis/eMLR_model_loop.Rmd" target="_blank">c2903fc</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-loop for model subset
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/c2903fce08499892842de3efbb7c559c67860270/docs/eMLR_model_loop.html" target="_blank">c2903fc</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-loop for model subset
+rebuild after revision and with modified files names and navbar
 </td>
 </tr>
 </tbody>
@@ -1157,8 +659,10 @@ library(rqdatatable)</code></pre>
 <pre class="r"><code>GLODAP &lt;- read_csv(here::here(&quot;data/GLODAPv2_2020&quot;,
                               &quot;GLODAPv2.2020_Merged_clean.csv&quot;))</code></pre>
 </div>
-<div id="subset-regridded-variable-forcing-model-data-according-to-glodap-observation-since-1982" class="section level1">
-<h1><span class="header-section-number">2</span> Subset regridded variable forcing model data according to GLODAP observation since 1982</h1>
+<div id="subset-model-data-according-to-glodap-observation" class="section level1">
+<h1><span class="header-section-number">2</span> Subset model data according to GLODAP observation</h1>
+<p>Here we subset regridded (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.</p>
+<p>Simultanously, we calculate annual model summary statistics and annual average DIC fields.</p>
 <pre class="r"><code># set path to model output files
 path_model_regridded &lt;-
   &quot;/net/kryo/work/loher/CESM_output/RECCAP2/regridded/&quot;
@@ -1398,8 +902,9 @@ ggplot() +
   scale_color_brewer(palette = &quot;Dark2&quot;, name = &quot;&quot;) +
   labs(title = paste(&quot;Interpolation to sampling depth -&quot;, i_variable, &quot;of year&quot;, i_year))</code></pre>
 </div>
-<div id="calculate-normal-forcing-annual-average-dic" class="section level1">
-<h1><span class="header-section-number">4</span> Calculate normal forcing annual average DIC</h1>
+<div id="annual-average-dic-fields" class="section level1">
+<h1><span class="header-section-number">4</span> Annual average DIC fields</h1>
+<p>To derive Cant estimates for certain years, we calculate annual average DIC fields also for the output of a model with normal forcing.</p>
 <pre class="r"><code># set path to model output files
 path_model_regridded &lt;-
   &quot;/net/kryo/work/loher/CESM_output/RECCAP2/regridded/&quot;
@@ -1467,13 +972,15 @@ for (i_year in years) {
     ))
   
 }</code></pre>
-<div id="calculate-cant-for-year-1994-and-2007" class="section level2">
-<h2><span class="header-section-number">4.1</span> Calculate Cant for year 1994 and 2007</h2>
+</div>
+<div id="calculate-model-cant" class="section level1">
+<h1><span class="header-section-number">5</span> Calculate model Cant</h1>
+<p>The model Cant can be calculate as the difference between two model runs. Currently, this is performed for year 1994 and 2007.</p>
 <pre class="r"><code># read in variable and normal forcing DIC data
 years &lt;- c(&quot;1994&quot;, &quot;2007&quot;)
 
-GLODAP &lt;- read_csv(here::here(&quot;data/GLODAPv2_2020&quot;,
-                              &quot;GLODAPv2.2020_Merged_clean.csv&quot;))
+# GLODAP &lt;- read_csv(here::here(&quot;data/GLODAPv2_2020&quot;,
+#                               &quot;GLODAPv2.2020_Merged_clean.csv&quot;))
 
 for (i_year in years) {
   # for manual testing
@@ -1518,386 +1025,7 @@ for (i_year in years) {
                         &quot;Cant&quot;))
   }
 }</code></pre>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-1">
-Past versions of calculate_Cant-1.png
-</button>
-</p>
-<div id="fig-calculate_Cant-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-1.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-2">
-Past versions of calculate_Cant-2.png
-</button>
-</p>
-<div id="fig-calculate_Cant-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-2.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-3">
-Past versions of calculate_Cant-3.png
-</button>
-</p>
-<div id="fig-calculate_Cant-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-3.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-4.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-4">
-Past versions of calculate_Cant-4.png
-</button>
-</p>
-<div id="fig-calculate_Cant-4" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-4.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-5.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-5">
-Past versions of calculate_Cant-5.png
-</button>
-</p>
-<div id="fig-calculate_Cant-5" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-5.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-6.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-6">
-Past versions of calculate_Cant-6.png
-</button>
-</p>
-<div id="fig-calculate_Cant-6" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-6.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-7.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-7">
-Past versions of calculate_Cant-7.png
-</button>
-</p>
-<div id="fig-calculate_Cant-7" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-7.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-8.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-8">
-Past versions of calculate_Cant-8.png
-</button>
-</p>
-<div id="fig-calculate_Cant-8" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-8.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-9.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-9">
-Past versions of calculate_Cant-9.png
-</button>
-</p>
-<div id="fig-calculate_Cant-9" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-9.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p><img src="figure/eMLR_model_loop.Rmd/calculate_Cant-10.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-calculate_Cant-10">
-Past versions of calculate_Cant-10.png
-</button>
-</p>
-<div id="fig-calculate_Cant-10" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/52902c118097662ed1acd51dfdad1c8187ab746b/docs/figure/eMLR_model_loop.Rmd/calculate_Cant-10.png" target="_blank">52902c1</a>
-</td>
-<td>
-Donghe-Zhu
-</td>
-<td>
-2020-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/read_model_data.Rmd/calculate_Cant-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data.Rmd/calculate_Cant-10.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1957,7 +1085,6 @@ loaded via a namespace (and not attached):
 [64] rprojroot_1.3-2          KernSmooth_2.23-18       stringi_1.5.3           
 [67] parallel_4.0.3           Rcpp_1.0.5               vctrs_0.3.4             
 [70] dbplyr_1.4.4             tidyselect_1.1.0         xfun_0.18               </code></pre>
-</div>
 </div>
 </div>
 

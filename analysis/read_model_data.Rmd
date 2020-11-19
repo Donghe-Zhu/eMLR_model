@@ -82,8 +82,11 @@ GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
 
 ```
 
+# Subset model data according to GLODAP observation
 
-# Subset regridded variable forcing model data according to GLODAP observation since 1982
+Here we subset regridded (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.
+
+Simultanously, we calculate annual model summary statistics and annual average DIC fields.
 
 ```{r subset_regridded_variable_forcing_data, eval=FALSE}
 
@@ -283,7 +286,7 @@ stats_summary %>%
 
 # Test for interpolation
 
-```{r test for interpolation, eval=FALSE}
+```{r test_for_interpolation, eval=FALSE}
 
 # subset model at month x lat x lon grid of observations
 model_subset <-
@@ -332,7 +335,9 @@ ggplot() +
 
 ```
 
-# Calculate normal forcing annual average DIC
+# Annual average DIC fields
+
+To derive Cant estimates for certain years, we calculate annual average DIC fields also for the output of a model with normal forcing.
 
 ```{r calculate_normal_forcing_annual_average_DIC, eval=FALSE}
 
@@ -406,15 +411,17 @@ for (i_year in years) {
 
 ```
 
-## Calculate Cant for year 1994 and 2007
+# Calculate model Cant
+
+The model Cant can be calculate as the difference between two model runs. Currently, this is performed for year 1994 and 2007.
 
 ```{r calculate_Cant}
 
 # read in variable and normal forcing DIC data
 years <- c("1994", "2007")
 
-GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
-                              "GLODAPv2.2020_Merged_clean.csv"))
+# GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
+#                               "GLODAPv2.2020_Merged_clean.csv"))
 
 for (i_year in years) {
   # for manual testing
