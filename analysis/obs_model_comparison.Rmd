@@ -21,6 +21,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(tidyverse)
 ```
 
+```{r read_mask_files, include = FALSE}
+
+basinmask <- read_csv(
+  here::here(
+    "data/World_Ocean_Atlas_2018/_summarized_files",
+    "basin_mask_WOA18_AIP.csv"
+  )
+)
+
+```
+
+
 ```{r ggplot_theme, include = FALSE}
 # ggplot theme for all plots
 theme_set(theme_bw())
@@ -44,6 +56,15 @@ GLODAP_model <-
   ))
 
 ```
+
+# Apply basin mask
+
+```{r apply_basin_mask_to_GLODAP_model_data}
+
+GLODAP_model <- inner_join(GLODAP_model, basinmask)
+
+```
+
 
 
 # Observation and model data comparison
@@ -122,7 +143,7 @@ for (i in 1:8) {
         title = "Observation (x) vs Model (y)",
         subtitle = "Seasonal comparison"
       ) +
-      scale_fill_viridis_c() +
+      scale_fill_viridis_c(trans = "log") +
       geom_abline(slope = 1,
                   col = 'red') +
       coord_equal(xlim = axis_lims,
@@ -141,7 +162,7 @@ for (i in 1:8) {
         title = "Observation (x) vs Model (y)",
         subtitle = "All years"
       ) +
-      scale_fill_viridis_c() +
+      scale_fill_viridis_c(trans = "log") +
       geom_abline(slope = 1, col = 'red') +
       coord_equal(xlim = axis_lims,
                   ylim = axis_lims)
