@@ -358,10 +358,6 @@ To derive Cant estimates for certain years, we calculate annual average DIC fiel
 
 ```{r calculate_normal_forcing_annual_average_DIC, eval=FALSE}
 
-# set path to model output files
-path_model_regridded <-
-  "/net/kryo/work/loher/CESM_output/RECCAP2/regridded/"
-
 # set name of modelled to be subsetted
 model_ID <- "GECO_NYF_cstCO2"
 
@@ -421,7 +417,7 @@ for (i_year in years) {
   normal_data_tibble_annual_average %>%
     write_csv(paste(
     paste(path_model_analysis, "climatologies/",model_ID, sep = ""),
-      paste("/DIC_annual_average_", i_year, ".csv", sep = "")
+      paste("/DIC_annual_average_", i_year, ".csv", sep = ""), sep = ""
     ))
   
 }
@@ -442,7 +438,7 @@ years <- c("1994", "2007")
 
 for (i_year in years) {
   # for manual testing
-  # i_year <- "1995"
+  # i_year <- years[1]
   
   # read in variable forcing annual average DIC data
   variable_annual_average_DIC <-
