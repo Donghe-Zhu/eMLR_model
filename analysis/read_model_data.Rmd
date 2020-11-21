@@ -88,11 +88,22 @@ Here we subset regridded (1x1) data from the model with variable forcing, accord
 
 Simultanously, we calculate annual model summary statistics and annual average DIC fields.
 
-```{r subset_regridded_variable_forcing_data, eval=FALSE}
+```{r set_absolute_path}
 
 # set path to model output files
 path_model_regridded <-
   "/net/kryo/work/loher/CESM_output/RECCAP2/regridded/"
+
+# set path to model analysis/subsetting output files
+path_model_analysis <-
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/analysis/"
+
+```
+
+
+
+```{r subset_regridded_variable_forcing_data, eval=FALSE}
+
 
 # set name of modelled to be subsetted
 model_ID <- "GIAF_JRA_2020"
@@ -110,7 +121,9 @@ for (i_year in years) {
   
   # for loop across variables
   variables <-
-    c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
+    c("DIC")
+  # variables <-
+  #   c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
   
   # create month x lat x lon grid of observations
   grid_subset <- GLODAP_year %>%
@@ -259,10 +272,11 @@ for (i_year in years) {
     if (i_variable == "DIC") {
       # write file for annually averaged model field
       variable_data_tibble_annual_average %>%
-        write_csv(here::here(
-          paste("data/model/", model_ID, sep = ""),
-          paste("DIC_annual_average_", i_year, ".csv", sep = "")
+        write_csv(paste(
+          paste(path_model_analysis, "climatologies/", model_ID, sep = ""),
+          paste("/DIC_annual_average_", i_year, ".csv", sep = ""), sep = ""
         ))
+      
       
     }
     
@@ -272,13 +286,16 @@ for (i_year in years) {
 
 # write file for GLODAP observations + subsetted model variables
 GLODAP %>%
-  write_csv(here::here("data/GLODAPv2_2020",
-                       "GLODAP_with_model_subset.csv"))
+  write_csv(paste(
+    paste(path_model_analysis, "glodapv2_2020_synthetic_data/", sep = ""),
+    "GLODAP_with_model_subset.csv",
+    sep = ""
+  ))
 
 # write file for model summary statistics
 stats_summary %>%
-  write_csv(here::here(
-    "data/model/summary_stats",
+  write_csv(paste(
+    paste(path_model_analysis, "diagnostics/", sep = ""),
     paste(model_ID, "summary_stats.csv", sep = "_")
   ))
 
@@ -402,9 +419,9 @@ for (i_year in years) {
   
   # write file for annually averaged model DIC
   normal_data_tibble_annual_average %>%
-    write_csv(here::here(
-      paste("data/model/", model_ID, sep = ""),
-      paste("DIC_annual_average_", i_year, ".csv", sep = "")
+    write_csv(paste(
+    paste(path_model_analysis, "climatologies/",model_ID, sep = ""),
+      paste("/DIC_annual_average_", i_year, ".csv", sep = "")
     ))
   
 }
@@ -415,7 +432,7 @@ for (i_year in years) {
 
 The model Cant can be calculate as the difference between two model runs. Currently, this is performed for year 1994 and 2007.
 
-```{r calculate_Cant}
+```{r calculate_Cant, eval=FALSE}
 
 # read in variable and normal forcing DIC data
 years <- c("1994", "2007")
@@ -425,24 +442,24 @@ years <- c("1994", "2007")
 
 for (i_year in years) {
   # for manual testing
-  # i_year <- "1994"
+  # i_year <- "1995"
   
   # read in variable forcing annual average DIC data
   variable_annual_average_DIC <-
-    read_csv(here::here(
-      "data/model/GIAF_JRA_2020",
-      paste("DIC_annual_average_", i_year, ".csv", sep = "")
-    )) %>%
+    read_csv(paste(
+    paste(path_model_analysis, "climatologies/GIAF_JRA_2020/", sep = ""),
+      paste("DIC_annual_average_", i_year, ".csv", sep = ""), sep = ""
+    )) %>% 
     rename(DIC_variable = DIC)
   
   # read in normal forcing annual average DIC data
   normal_annual_average_DIC <-
-    read_csv(here::here(
-      "data/model/GECO_NYF_cstCO2",
-      paste("DIC_annual_average_", i_year, ".csv", sep = "")
-    )) %>%
+    read_csv(paste(
+    paste(path_model_analysis, "climatologies/GECO_NYF_cstCO2/", sep = ""),
+      paste("DIC_annual_average_", i_year, ".csv", sep = ""), sep = ""
+    )) %>% 
     rename(DIC_normal = DIC)
-  
+
   # calculate Cant
   cant <-
     full_join(variable_annual_average_DIC, normal_annual_average_DIC) %>%

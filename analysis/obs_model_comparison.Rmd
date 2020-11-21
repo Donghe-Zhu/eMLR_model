@@ -31,8 +31,17 @@ theme_set(theme_bw())
 
 ```{r read_GLODAP_with_model_subset_data}
 
-GLODAP_model <- read_csv(here::here("data/GLODAPv2_2020",
-                       "GLODAP_with_model_subset.csv"))
+# set path to model analysis/subsetting output files
+path_model_analysis <-
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/analysis/"
+
+# read file for GLODAP observations + subsetted model variables
+GLODAP_model <- 
+  read_csv(paste(
+    paste(path_model_analysis, "glodapv2_2020_synthetic_data/", sep = ""),
+    "GLODAP_with_model_subset.csv",
+    sep = ""
+  ))
 
 ```
 
@@ -167,8 +176,14 @@ for (i in 1:8) {
 A set of model summary statistics was calculated for each relevant variable and year.
 
 ```{r read_model_summary_stats}
-model_stats <- read_csv(here::here("data/model/summary_stats",
-                       "GIAF_JRA_2020_summary_stats.csv"))
+
+# write file for model summary statistics
+model_stats <-
+  read_csv(paste(
+    paste(path_model_analysis, "diagnostics/", sep = ""),
+    "GIAF_JRA_2020_summary_stats.csv"
+  ))
+
 ```
 
 ```{r pivot_model_summary_stats}
