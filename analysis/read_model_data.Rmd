@@ -428,7 +428,7 @@ for (i_year in years) {
 
 The model Cant can be calculate as the difference between two model runs. Currently, this is performed for year 1994 and 2007.
 
-```{r calculate_Cant, eval=FALSE}
+```{r calculate_Cant}
 
 # read in variable and normal forcing DIC data
 years <- c("1994", "2007")
