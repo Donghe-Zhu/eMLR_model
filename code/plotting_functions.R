@@ -4,7 +4,7 @@ map_global <- function(df, var) {
   var <- sym(var)
 
   df_sub <- df %>%
-    filter(lat < 65)
+    filter(lat < 85)
 
   df_sub %>%
     ggplot() +
@@ -125,7 +125,7 @@ surface_GLODAP <- function(df1, df2, df3, var) {
   var <- sym(var)
 
   df_sub <- df2 %>%
-    filter(lat < 65)
+    filter(lat < 85)
 
   ggplot() +
     geom_raster(data = df1, aes(lon, lat, fill = !!var)) +
