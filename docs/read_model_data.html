@@ -443,7 +443,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">eMLR model loop</h1>
 <h4 class="author">Donghe Zhu and Dr Jens Daniel Müller</h4>
-<h4 class="date">21 November, 2020</h4>
+<h4 class="date">22 November, 2020</h4>
 
 </div>
 
@@ -468,7 +468,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-21
+<strong>Last updated:</strong> 2020-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -559,16 +559,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree25b49ab00d12d106cac9ca863d05a6f90608c4edtargetblank25b49aba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/25b49ab00d12d106cac9ca863d05a6f90608c4ed" target="_blank">25b49ab</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreef46bd16bfda13127666eb1b2e84480b22cb31399targetblankf46bd16a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/f46bd16bfda13127666eb1b2e84480b22cb31399" target="_blank">f46bd16</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree25b49ab00d12d106cac9ca863d05a6f90608c4edtargetblank25b49aba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreef46bd16bfda13127666eb1b2e84480b22cb31399targetblankf46bd16a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/25b49ab00d12d106cac9ca863d05a6f90608c4ed" target="_blank">25b49ab</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/f46bd16bfda13127666eb1b2e84480b22cb31399" target="_blank">f46bd16</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -581,6 +581,10 @@ Ignored files:
     Ignored:    data/World_Ocean_Atlas_2018/
     Ignored:    data/model/
     Ignored:    output/model_subsetting/
+
+Unstaged changes:
+    Modified:   code/Workflowr_project_managment_jdm.R
+    Modified:   code/plotting_functions.R
 
 </code></pre>
 <p>
@@ -619,6 +623,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/f46bd16bfda13127666eb1b2e84480b22cb31399/analysis/read_model_data.Rmd" target="_blank">f46bd16</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+local rebuild
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/read_model_data.html" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -759,7 +797,7 @@ library(rqdatatable)</code></pre>
 <div id="subset-model-data-according-to-glodap-observation" class="section level1">
 <h1><span class="header-section-number">2</span> Subset model data according to GLODAP observation</h1>
 <p>Here we subset regridded (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.</p>
-<p>Simultanously, we calculate annual model summary statistics and annual average DIC fields.</p>
+<p>Simultaneously, we calculate annual model summary statistics and annual average DIC fields.</p>
 <pre class="r"><code># set path to model output files
 path_model_regridded &lt;-
   &quot;/net/kryo/work/loher/CESM_output/RECCAP2/regridded/&quot;
@@ -1152,6 +1190,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-1.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-1.png" target="_blank">bb3d89d</a>
 </td>
 <td>
@@ -1199,6 +1248,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-2.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-2.png" target="_blank">bb3d89d</a>
@@ -1250,6 +1310,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-3.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-3.png" target="_blank">bb3d89d</a>
 </td>
 <td>
@@ -1297,6 +1368,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-4.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-4.png" target="_blank">bb3d89d</a>
@@ -1348,6 +1430,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-5.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-5.png" target="_blank">bb3d89d</a>
 </td>
 <td>
@@ -1395,6 +1488,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-6.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-6.png" target="_blank">bb3d89d</a>
@@ -1446,6 +1550,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-7.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-7.png" target="_blank">bb3d89d</a>
 </td>
 <td>
@@ -1493,6 +1608,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-8.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-8.png" target="_blank">bb3d89d</a>
@@ -1544,6 +1670,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-9.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-9.png" target="_blank">bb3d89d</a>
 </td>
 <td>
@@ -1591,6 +1728,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/a838c04cf480aefdf1358cdfc2d2f0f4f633fd77/docs/figure/read_model_data.Rmd/calculate_Cant-10.png" target="_blank">a838c04</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/bb3d89daae27dba5e3c69757e671669601203190/docs/figure/read_model_data.Rmd/calculate_Cant-10.png" target="_blank">bb3d89d</a>
