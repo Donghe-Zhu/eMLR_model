@@ -86,7 +86,7 @@ GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
 
 Here we subset regridded (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.
 
-Simultanously, we calculate annual model summary statistics and annual average DIC fields.
+Simultaneously, we calculate annual model summary statistics and annual average DIC fields.
 
 ```{r set_absolute_path}
 

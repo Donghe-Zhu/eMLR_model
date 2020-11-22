@@ -30,8 +30,14 @@ basinmask <- read_csv(
   )
 )
 
-```
+landmask <-  read_csv(
+  here::here(
+    "data/World_Ocean_Atlas_2018/_summarized_files",
+    "land_mask_WOA18.csv"
+  )
+)
 
+```
 
 ```{r ggplot_theme, include = FALSE}
 # ggplot theme for all plots
@@ -171,7 +177,7 @@ for (i in 1:8) {
   
   # Calculate annual mean offset
   variable_year <- GLODAP_model %>%
-    select(year,!!sym(obs_var[i]),!!sym(model_var[i])) %>%
+    select(year,!!sym(obs_var[i]),!!sym(model_var[i])) %>% 
     drop_na() %>%
     mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %>%
     group_by(year) %>%
@@ -187,7 +193,33 @@ for (i in 1:8) {
       labs(title = "Annual mean offset",
            subtitle = paste(sym(model_var[i]), "-", sym(obs_var[i])))
   )
-      
+  
+  # spatial distribution of the model-observations offset for 4 depth intervals
+  intervals <- c(0, 150, 500, 2000, 8000)
+  for (j in 1:4) {
+    variable_annual <- GLODAP_model %>%
+      select(lat, lon, depth,!!sym(obs_var[i]),!!sym(model_var[i])) %>%
+      filter(depth %in% (intervals[j]:intervals[j+1])) %>%
+      drop_na() %>%
+      mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %>%
+      group_by(lat, lon) %>%
+      summarise(offset = mean(offset)) %>%
+      ungroup()
+    
+    # plot mean spatial distribution
+    ggplot() +
+    geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
+    scale_fill_viridis_c(name = "offset") +
+    coord_quickmap(expand = 0) +
+    labs(
+      title = paste(model_var[i], "vs", obs_var[i], "mean offset spatial distribution"),
+      subtitle = paste("Depth intervals:", intervals[j], "-", intervals[j+1]),
+      x = "Longitude",
+      y = "Latitude"
+    ) +
+    geom_raster(data = landmask,
+                aes(lon, lat), fill = "grey80")
+  }
 }
 
 ```
