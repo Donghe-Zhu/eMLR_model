@@ -559,16 +559,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree4f2df3458f79067a1e06bd13a747e057ce1b9a7ctargetblank4f2df34a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/4f2df3458f79067a1e06bd13a747e057ce1b9a7c" target="_blank">4f2df34</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree98eda6402e1cc34c29236dab1786b155f2e11100targetblank98eda64a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/98eda6402e1cc34c29236dab1786b155f2e11100" target="_blank">98eda64</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree4f2df3458f79067a1e06bd13a747e057ce1b9a7ctargetblank4f2df34a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree98eda6402e1cc34c29236dab1786b155f2e11100targetblank98eda64a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/4f2df3458f79067a1e06bd13a747e057ce1b9a7c" target="_blank">4f2df34</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/98eda6402e1cc34c29236dab1786b155f2e11100" target="_blank">98eda64</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -581,10 +581,6 @@ Ignored files:
     Ignored:    data/World_Ocean_Atlas_2018/
     Ignored:    data/model/
     Ignored:    output/model_subsetting/
-
-Unstaged changes:
-    Modified:   code/Workflowr_project_managment_jdm.R
-    Modified:   code/plotting_functions.R
 
 </code></pre>
 <p>
@@ -623,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/98eda6402e1cc34c29236dab1786b155f2e11100/analysis/obs_model_comparison.Rmd" target="_blank">98eda64</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+mean offset spacial distribution plot
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/obs_model_comparison.html" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1277,7 +1307,7 @@ for (i in 1:8) {
     print(
       ggplot() +
         geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
-        scale_fill_viridis_c(name = &quot;offset&quot;) +
+        scale_fill_viridis_c(name = &quot;offset&quot;, trans = &quot;log&quot;) +
         coord_quickmap(expand = 0) +
         labs(
           title = paste(model_var[i], &quot;vs&quot;, obs_var[i], &quot;mean offset spatial distribution&quot;),
@@ -1529,6 +1559,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-4.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-4.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -1611,6 +1652,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-5.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-5.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -1691,6 +1743,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-6.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-6.png" target="_blank">9cfa46d</a>
@@ -1786,6 +1849,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-7.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-7.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -1868,6 +1942,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-8.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-8.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -1948,6 +2033,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-9.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-9.png" target="_blank">9cfa46d</a>
@@ -2043,6 +2139,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-10.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-10.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2125,6 +2232,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-11.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-11.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2205,6 +2323,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-12.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-12.png" target="_blank">9cfa46d</a>
@@ -2300,6 +2429,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-13.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-13.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2382,6 +2522,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-14.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-14.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2462,6 +2613,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-15.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-15.png" target="_blank">9cfa46d</a>
@@ -2557,6 +2719,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-16.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-16.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2639,6 +2812,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-17.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-17.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2686,6 +2870,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-18.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-18.png" target="_blank">9cfa46d</a>
@@ -2748,6 +2943,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-19.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-19.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2797,6 +3003,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-20.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-20.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2844,6 +3061,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-21.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-21.png" target="_blank">9cfa46d</a>
@@ -2906,6 +3134,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-22.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-22.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -2953,6 +3192,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-23.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-23.png" target="_blank">9cfa46d</a>
@@ -3004,6 +3254,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-24.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9cfa46dfda8d8af172eb5f73f7a4d2420bdbddcb/docs/figure/obs_model_comparison.Rmd/all_years_comparison-24.png" target="_blank">9cfa46d</a>
 </td>
 <td>
@@ -3039,7 +3300,1222 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
-<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-25.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-26.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-27.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-28.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-29.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-30.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-31.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-32.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-33.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-34.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-35.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-36.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-37.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-38.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-39.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-40.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-41.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-42.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-43.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-44.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-45.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-46.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-47.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-48.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-49.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-50.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-51.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-52.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-53.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-54.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-55.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-56.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-25.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-25">
+Past versions of all_years_comparison-25.png
+</button>
+</p>
+<div id="fig-all_years_comparison-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-25.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-26.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-26">
+Past versions of all_years_comparison-26.png
+</button>
+</p>
+<div id="fig-all_years_comparison-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-26.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-27">
+Past versions of all_years_comparison-27.png
+</button>
+</p>
+<div id="fig-all_years_comparison-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-27.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-28.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-28">
+Past versions of all_years_comparison-28.png
+</button>
+</p>
+<div id="fig-all_years_comparison-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-28.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-29.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-29">
+Past versions of all_years_comparison-29.png
+</button>
+</p>
+<div id="fig-all_years_comparison-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-29.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-30.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-30">
+Past versions of all_years_comparison-30.png
+</button>
+</p>
+<div id="fig-all_years_comparison-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-30.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-31.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-31">
+Past versions of all_years_comparison-31.png
+</button>
+</p>
+<div id="fig-all_years_comparison-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-31.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-32.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-32">
+Past versions of all_years_comparison-32.png
+</button>
+</p>
+<div id="fig-all_years_comparison-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-32.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-33.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-33">
+Past versions of all_years_comparison-33.png
+</button>
+</p>
+<div id="fig-all_years_comparison-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-33.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-34.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-34">
+Past versions of all_years_comparison-34.png
+</button>
+</p>
+<div id="fig-all_years_comparison-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-34.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-35.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-35">
+Past versions of all_years_comparison-35.png
+</button>
+</p>
+<div id="fig-all_years_comparison-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-35.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-36.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-36">
+Past versions of all_years_comparison-36.png
+</button>
+</p>
+<div id="fig-all_years_comparison-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-36.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-37.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-37">
+Past versions of all_years_comparison-37.png
+</button>
+</p>
+<div id="fig-all_years_comparison-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-37.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-38.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-38">
+Past versions of all_years_comparison-38.png
+</button>
+</p>
+<div id="fig-all_years_comparison-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-38.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-39.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-39">
+Past versions of all_years_comparison-39.png
+</button>
+</p>
+<div id="fig-all_years_comparison-39" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-39.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-40.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-40">
+Past versions of all_years_comparison-40.png
+</button>
+</p>
+<div id="fig-all_years_comparison-40" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-40.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-41.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-41">
+Past versions of all_years_comparison-41.png
+</button>
+</p>
+<div id="fig-all_years_comparison-41" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-41.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-42.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-42">
+Past versions of all_years_comparison-42.png
+</button>
+</p>
+<div id="fig-all_years_comparison-42" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-42.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-43.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-43">
+Past versions of all_years_comparison-43.png
+</button>
+</p>
+<div id="fig-all_years_comparison-43" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-43.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-44.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-44">
+Past versions of all_years_comparison-44.png
+</button>
+</p>
+<div id="fig-all_years_comparison-44" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-44.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-45.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-45">
+Past versions of all_years_comparison-45.png
+</button>
+</p>
+<div id="fig-all_years_comparison-45" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-45.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-46.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-46">
+Past versions of all_years_comparison-46.png
+</button>
+</p>
+<div id="fig-all_years_comparison-46" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-46.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-47.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-47">
+Past versions of all_years_comparison-47.png
+</button>
+</p>
+<div id="fig-all_years_comparison-47" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-47.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-48.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-48">
+Past versions of all_years_comparison-48.png
+</button>
+</p>
+<div id="fig-all_years_comparison-48" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-48.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-49.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-49">
+Past versions of all_years_comparison-49.png
+</button>
+</p>
+<div id="fig-all_years_comparison-49" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-49.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-50.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-50">
+Past versions of all_years_comparison-50.png
+</button>
+</p>
+<div id="fig-all_years_comparison-50" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-50.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-51.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-51">
+Past versions of all_years_comparison-51.png
+</button>
+</p>
+<div id="fig-all_years_comparison-51" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-51.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-52.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-52">
+Past versions of all_years_comparison-52.png
+</button>
+</p>
+<div id="fig-all_years_comparison-52" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-52.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-53.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-53">
+Past versions of all_years_comparison-53.png
+</button>
+</p>
+<div id="fig-all_years_comparison-53" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-53.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-54.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-54">
+Past versions of all_years_comparison-54.png
+</button>
+</p>
+<div id="fig-all_years_comparison-54" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-54.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-55.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-55">
+Past versions of all_years_comparison-55.png
+</button>
+</p>
+<div id="fig-all_years_comparison-55" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-55.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-56.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-all_years_comparison-56">
+Past versions of all_years_comparison-56.png
+</button>
+</p>
+<div id="fig-all_years_comparison-56" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/957a79740555370cbdd32f3877c34172a5cbe2f1/docs/figure/obs_model_comparison.Rmd/all_years_comparison-56.png" target="_blank">957a797</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="model-diagnostics" class="section level1">
 <h1><span class="header-section-number">4</span> Model diagnostics</h1>
