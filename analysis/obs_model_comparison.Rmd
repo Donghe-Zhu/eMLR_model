@@ -19,6 +19,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r library, message = FALSE, warning = FALSE}
 library(tidyverse)
+library(scico)
 ```
 
 ```{r read_mask_files, include = FALSE}
@@ -201,20 +202,57 @@ for (i in 1:8) {
       select(lat, lon, depth, !!sym(obs_var[i]), !!sym(model_var[i])) %>%
       filter(depth %in% (intervals[j]:intervals[j + 1])) %>%
       drop_na() %>%
-      mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %>%
+      mutate(
+        offset = !!sym(model_var[i]) -!!sym(obs_var[i]),
+        offset_log = !!sym(model_var[i]) / !!sym(obs_var[i])
+      ) %>%
       group_by(lat, lon) %>%
-      summarise(offset = mean(offset)) %>%
+      summarise(offset = mean(offset),
+                offset_log = mean(offset_log)) %>%
       ungroup()
     
-    # plot mean spatial distribution
+    # plot mean spatial distribution (model - obs)
     limit <- max(abs(variable_annual$offset)) * c(-1, 1)
     print(
       ggplot() +
         geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
-        scale_fill_viridis_c(name = "offset", limit = limit) +
+        scale_fill_scico(
+          palette = "vik",
+          name = "offset",
+          limit = limit
+        ) +
         coord_quickmap(expand = 0) +
         labs(
           title = paste(model_var[i], "vs", obs_var[i], "mean offset spatial distribution"),
+          subtitle = paste("Depth intervals:", intervals[j], "-", intervals[j +
+                                                                              1]),
+          x = "Longitude",
+          y = "Latitude"
+        ) +
+        geom_raster(data = landmask,
+                    aes(lon, lat), fill = "grey80")
+    )
+    
+    # plot mean spatial distribution (ratio: model / obs)
+    limit <-
+      c(2 - max(abs(variable_annual$offset_log)), max(abs(variable_annual$offset_log)))
+    print(
+      ggplot() +
+        geom_raster(data = variable_annual, aes(lon, lat, fill = offset_log)) +
+        scale_fill_scico(
+          palette = "vik",
+          name = "offset ratio",
+          limit = limit,
+          trans = "log"
+        ) +
+        coord_quickmap(expand = 0) +
+        labs(
+          title = paste(
+            model_var[i],
+            "vs",
+            obs_var[i],
+            "mean offset ratio spatial distribution"
+          ),
           subtitle = paste("Depth intervals:", intervals[j], "-", intervals[j +
                                                                               1]),
           x = "Longitude",
