@@ -210,7 +210,7 @@ for (i in 1:8) {
     print(
       ggplot() +
         geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
-        scale_fill_viridis_c(name = "offset") +
+        scale_fill_viridis_c(name = "offset", trans = "log") +
         coord_quickmap(expand = 0) +
         labs(
           title = paste(model_var[i], "vs", obs_var[i], "mean offset spatial distribution"),
