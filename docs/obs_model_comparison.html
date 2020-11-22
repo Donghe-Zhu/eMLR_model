@@ -559,16 +559,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreef46bd16bfda13127666eb1b2e84480b22cb31399targetblankf46bd16a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/f46bd16bfda13127666eb1b2e84480b22cb31399" target="_blank">f46bd16</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree4f2df3458f79067a1e06bd13a747e057ce1b9a7ctargetblank4f2df34a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/4f2df3458f79067a1e06bd13a747e057ce1b9a7c" target="_blank">4f2df34</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreef46bd16bfda13127666eb1b2e84480b22cb31399targetblankf46bd16a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree4f2df3458f79067a1e06bd13a747e057ce1b9a7ctargetblank4f2df34a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/f46bd16bfda13127666eb1b2e84480b22cb31399" target="_blank">f46bd16</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/4f2df3458f79067a1e06bd13a747e057ce1b9a7c" target="_blank">4f2df34</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -623,6 +623,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/4f2df3458f79067a1e06bd13a747e057ce1b9a7c/analysis/obs_model_comparison.Rmd" target="_blank">4f2df34</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+local rebuild
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/9dde56663470c3dc68daa3daa4cbdbc279b8fedb/docs/obs_model_comparison.html" target="_blank">9dde566</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1231,8 +1265,8 @@ for (i in 1:8) {
   intervals &lt;- c(0, 150, 500, 2000, 8000)
   for (j in 1:4) {
     variable_annual &lt;- GLODAP_model %&gt;%
-      select(lat, lon, depth,!!sym(obs_var[i]),!!sym(model_var[i])) %&gt;%
-      filter(depth %in% (intervals[j]:intervals[j+1])) %&gt;%
+      select(lat, lon, depth, !!sym(obs_var[i]), !!sym(model_var[i])) %&gt;%
+      filter(depth %in% (intervals[j]:intervals[j + 1])) %&gt;%
       drop_na() %&gt;%
       mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %&gt;%
       group_by(lat, lon) %&gt;%
@@ -1240,18 +1274,21 @@ for (i in 1:8) {
       ungroup()
     
     # plot mean spatial distribution
-    ggplot() +
-    geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
-    scale_fill_viridis_c(name = &quot;offset&quot;) +
-    coord_quickmap(expand = 0) +
-    labs(
-      title = paste(model_var[i], &quot;vs&quot;, obs_var[i], &quot;mean offset spatial distribution&quot;),
-      subtitle = paste(&quot;Depth intervals:&quot;, intervals[j], &quot;-&quot;, intervals[j+1]),
-      x = &quot;Longitude&quot;,
-      y = &quot;Latitude&quot;
-    ) +
-    geom_raster(data = landmask,
-                aes(lon, lat), fill = &quot;grey80&quot;)
+    print(
+      ggplot() +
+        geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
+        scale_fill_viridis_c(name = &quot;offset&quot;) +
+        coord_quickmap(expand = 0) +
+        labs(
+          title = paste(model_var[i], &quot;vs&quot;, obs_var[i], &quot;mean offset spatial distribution&quot;),
+          subtitle = paste(&quot;Depth intervals:&quot;, intervals[j], &quot;-&quot;, intervals[j +
+                                                                              1]),
+          x = &quot;Longitude&quot;,
+          y = &quot;Latitude&quot;
+        ) +
+        geom_raster(data = landmask,
+                    aes(lon, lat), fill = &quot;grey80&quot;)
+    )
   }
 }</code></pre>
 <p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -3002,6 +3039,7 @@ jens-daniel-mueller
 </table>
 </div>
 </div>
+<p><img src="figure/obs_model_comparison.Rmd/all_years_comparison-25.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-26.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-27.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-28.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-29.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-30.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-31.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-32.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-33.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-34.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-35.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-36.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-37.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-38.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-39.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-40.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-41.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-42.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-43.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-44.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-45.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-46.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-47.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-48.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-49.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-50.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-51.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-52.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-53.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-54.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-55.png" width="672" style="display: block; margin: auto;" /><img src="figure/obs_model_comparison.Rmd/all_years_comparison-56.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="model-diagnostics" class="section level1">
 <h1><span class="header-section-number">4</span> Model diagnostics</h1>
