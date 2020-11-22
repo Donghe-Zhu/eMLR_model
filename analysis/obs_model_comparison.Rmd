@@ -207,10 +207,11 @@ for (i in 1:8) {
       ungroup()
     
     # plot mean spatial distribution
+    limit <- max(abs(variable_annual$offset)) * c(-1, 1)
     print(
       ggplot() +
         geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
-        scale_fill_viridis_c(name = "offset", trans = "log") +
+        scale_fill_viridis_c(name = "offset", limit = limit) +
         coord_quickmap(expand = 0) +
         labs(
           title = paste(model_var[i], "vs", obs_var[i], "mean offset spatial distribution"),
