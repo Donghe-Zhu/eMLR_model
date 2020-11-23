@@ -258,14 +258,12 @@ for (i in 1:8) {
         ) +
         coord_quickmap(expand = 0) +
         labs(
-          title = paste(
-            model_var[i],
-            "vs",
-            obs_var[i],
-            "mean offset spatial distribution"
-          ),
+          title = paste(model_var[i],
+                        "vs",
+                        obs_var[i],
+                        "mean offset spatial distribution"),
           subtitle = paste("Depth interval:",
-                           intervals[j], "-", intervals[j + 1]),
+                           intervals[j], "-", intervals[j + 1], "m"),
           x = "Longitude",
           y = "Latitude"
         ) +
@@ -282,7 +280,8 @@ for (i in 1:8) {
                       obs_var[i],
                       "mean offset per grid cell - histogram"),
         subtitle = paste("Depth interval:",
-                         intervals[j], "-", intervals[j + 1]))
+                         intervals[j], "-", intervals[j + 1], "m")
+      )
   }
 }
 
