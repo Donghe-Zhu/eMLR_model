@@ -205,16 +205,15 @@ for (i in 1:8) {
     GLODAP_model_var_grid <- GLODAP_model_var %>%
       filter(depth >= intervals[j],
              depth < intervals[j + 1]) %>%
-      mutate(
-        offset_log = log(!!sym(model_var[i]) / !!sym(obs_var[i]))
-      ) %>%
       group_by(lat, lon) %>%
       summarise(offset = mean(offset)) %>%
       ungroup()
     
+    print(
     GLODAP_model_var_grid %>% 
       ggplot(aes(offset)) +
       geom_histogram()
+    )
     
     # plot mean spatial distribution (model - obs)
     limit <- max(abs(GLODAP_model_var_grid$offset)) * c(-1, 1)
