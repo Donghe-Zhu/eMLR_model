@@ -559,16 +559,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree2ae02c8972b9a676bef09dc3e8e63a039fd9eff9targetblank2ae02c8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/2ae02c8972b9a676bef09dc3e8e63a039fd9eff9" target="_blank">2ae02c8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreeda314f7e8f9ba0bdb405ff7095037c0ed15e1bbbtargetblankda314f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/da314f7e8f9ba0bdb405ff7095037c0ed15e1bbb" target="_blank">da314f7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree2ae02c8972b9a676bef09dc3e8e63a039fd9eff9targetblank2ae02c8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreeda314f7e8f9ba0bdb405ff7095037c0ed15e1bbbtargetblankda314f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/2ae02c8972b9a676bef09dc3e8e63a039fd9eff9" target="_blank">2ae02c8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/da314f7e8f9ba0bdb405ff7095037c0ed15e1bbb" target="_blank">da314f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -619,6 +619,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/da314f7e8f9ba0bdb405ff7095037c0ed15e1bbb/analysis/obs_model_comparison.Rmd" target="_blank">da314f7</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+converted model units to mol kg-1
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/f9ff40030acf6b0be711197a6a3e32dbb0935f4e/docs/obs_model_comparison.html" target="_blank">f9ff400</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1397,17 +1431,19 @@ GLODAP_model &lt;-
     t = TEMP_model,
     p = depth,
     p_ref = 10.1325
-  ))
+  ),
+  dens_factor = 1000/rho)
 
 GLODAP_model &lt;- GLODAP_model %&gt;%
   mutate(
-    DIC_model  &lt;- DIC_model * (1000 / rho),
-    ALK_model  &lt;- ALK_model * (1000 / rho),
-    O2_model   &lt;- O2_model * (1000 / rho),
-    NO3_model  &lt;- NO3_model * (1000 / rho),
-    PO4_model  &lt;- PO4_model * (1000 / rho),
-    SiO3_model &lt;- SiO3_model * (1000 / rho)
-  )</code></pre>
+    DIC_model  = DIC_model * dens_factor,
+    ALK_model  = ALK_model * dens_factor,
+    O2_model   = O2_model * dens_factor,
+    NO3_model  = NO3_model * dens_factor,
+    PO4_model  = PO4_model * dens_factor,
+    SiO3_model = SiO3_model * dens_factor
+  ) %&gt;% 
+  select(-dens_factor)</code></pre>
 </div>
 <div id="apply-basin-mask" class="section level1">
 <h1><span class="header-section-number">3</span> Apply basin mask</h1>
