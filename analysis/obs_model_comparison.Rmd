@@ -262,9 +262,9 @@ for (i in 1:8) {
           title = paste(model_var[i],
                         "-",
                         obs_var[i],
-                        " | mean offset per grid cell | color scale shows 98th percentile"),
+                        " | mean offset per grid cell"),
           subtitle = paste("Depth interval:",
-                           intervals[j], "-", intervals[j + 1], "m"),
+                           intervals[j], "-", intervals[j + 1], "m | red: outside 98th percentile"),
           x = "Longitude",
           y = "Latitude"
         ) +
