@@ -88,6 +88,7 @@ obs_var <-
     "silicate",
     "sal",
     "tem")
+
 model_var <-
   c(
     "DIC_model",
@@ -106,7 +107,7 @@ for (i in 1:8) {
   # i <- 2
   
   # select correlated observation and model variable
-  variable_all <- GLODAP_model %>%
+  GLODAP_model_var <- GLODAP_model %>%
     select(year,
            month,
            lat,
@@ -125,7 +126,7 @@ for (i in 1:8) {
     )
   
   # calculate equal axis limits and binwidth
-  axis_lims <- variable_all %>%
+  axis_lims <- GLODAP_model_var %>%
     summarise(
       max_value = max(c(
         max(!!sym(obs_var[i])),
@@ -135,13 +136,14 @@ for (i in 1:8) {
         min(!!sym(model_var[i]))))
       )
   
-  binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 30
+  binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 40
   axis_lims <- c(axis_lims$min_value, axis_lims$max_value)
+  
 
   
   # obs-model plot (season)
   print(
-    ggplot(variable_all, aes(
+    ggplot(GLODAP_model_var, aes(
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
@@ -160,7 +162,7 @@ for (i in 1:8) {
   
   # obs-model plot (year)
   print(
-    ggplot(variable_all, aes(
+    ggplot(GLODAP_model_var, aes(
       x = !!sym(obs_var[i]),
       y = !!sym(model_var[i])
     )) +
@@ -176,18 +178,19 @@ for (i in 1:8) {
   )
   
   
+  # Calculate variable offset
+  GLODAP_model_var <- GLODAP_model_var %>%
+    mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i]))
+
   # Calculate annual mean offset
-  variable_year <- GLODAP_model %>%
-    select(year,!!sym(obs_var[i]),!!sym(model_var[i])) %>% 
-    drop_na() %>%
-    mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i])) %>%
+  GLODAP_model_var_year <- GLODAP_model_var %>%
     group_by(year) %>%
     summarise(offset = mean(offset)) %>%
     ungroup()
   
   # plot annual mean offset
   print(
-    variable_year %>%
+    GLODAP_model_var_year %>%
       ggplot(aes(year, offset)) +
       geom_point() +
       geom_line() +
@@ -198,24 +201,26 @@ for (i in 1:8) {
   # spatial distribution of the model-observations offset for 4 depth intervals
   intervals <- c(0, 150, 500, 2000, 8000)
   for (j in 1:4) {
-    variable_annual <- GLODAP_model %>%
-      select(lat, lon, depth, !!sym(obs_var[i]), !!sym(model_var[i])) %>%
-      filter(depth %in% (intervals[j]:intervals[j + 1])) %>%
-      drop_na() %>%
+    # j <- 1
+    GLODAP_model_var_grid <- GLODAP_model_var %>%
+      filter(depth >= intervals[j],
+             depth < intervals[j + 1]) %>%
       mutate(
-        offset = !!sym(model_var[i]) -!!sym(obs_var[i]),
-        offset_log = !!sym(model_var[i]) / !!sym(obs_var[i])
+        offset_log = log(!!sym(model_var[i]) / !!sym(obs_var[i]))
       ) %>%
       group_by(lat, lon) %>%
-      summarise(offset = mean(offset),
-                offset_log = mean(offset_log)) %>%
+      summarise(offset = mean(offset)) %>%
       ungroup()
     
+    GLODAP_model_var_grid %>% 
+      ggplot(aes(offset)) +
+      geom_histogram()
+    
     # plot mean spatial distribution (model - obs)
-    limit <- max(abs(variable_annual$offset)) * c(-1, 1)
+    limit <- max(abs(GLODAP_model_var_grid$offset)) * c(-1, 1)
     print(
       ggplot() +
-        geom_raster(data = variable_annual, aes(lon, lat, fill = offset)) +
+        geom_raster(data = GLODAP_model_var_grid, aes(lon, lat, fill = offset)) +
         scale_fill_scico(
           palette = "vik",
           name = "offset",
@@ -233,34 +238,6 @@ for (i in 1:8) {
                     aes(lon, lat), fill = "grey80")
     )
     
-    # plot mean spatial distribution (ratio: model / obs)
-    limit <-
-      c(2 - max(abs(variable_annual$offset_log)), max(abs(variable_annual$offset_log)))
-    print(
-      ggplot() +
-        geom_raster(data = variable_annual, aes(lon, lat, fill = offset_log)) +
-        scale_fill_scico(
-          palette = "vik",
-          name = "offset ratio",
-          limit = limit,
-          trans = "log"
-        ) +
-        coord_quickmap(expand = 0) +
-        labs(
-          title = paste(
-            model_var[i],
-            "vs",
-            obs_var[i],
-            "mean offset ratio spatial distribution"
-          ),
-          subtitle = paste("Depth intervals:", intervals[j], "-", intervals[j +
-                                                                              1]),
-          x = "Longitude",
-          y = "Latitude"
-        ) +
-        geom_raster(data = landmask,
-                    aes(lon, lat), fill = "grey80")
-    )
   }
 }
 
