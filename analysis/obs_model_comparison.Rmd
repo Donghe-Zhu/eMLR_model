@@ -112,9 +112,7 @@ for (i in 1:8) {
            month,
            lat,
            lon,
-           depth,
-           !!sym(obs_var[i]),
-           !!sym(model_var[i])) %>%
+           depth,!!sym(obs_var[i]),!!sym(model_var[i])) %>%
     drop_na() %>%
     mutate(
       season = case_when(
@@ -127,19 +125,23 @@ for (i in 1:8) {
   
   # calculate equal axis limits and binwidth
   axis_lims <- GLODAP_model_var %>%
-    summarise(
-      max_value = max(c(
-        max(!!sym(obs_var[i])),
-        max(!!sym(model_var[i])))),
-      min_value = min(c(
-        min(!!sym(obs_var[i])),
-        min(!!sym(model_var[i]))))
-      )
+    summarise(max_value = max(c(max(!!sym(
+      obs_var[i]
+    )),
+    max(
+      !!sym(model_var[i])
+    ))),
+    min_value = min(c(min(!!sym(
+      obs_var[i]
+    )),
+    min(
+      !!sym(model_var[i])
+    ))))
   
   binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 40
   axis_lims <- c(axis_lims$min_value, axis_lims$max_value)
   
-
+  
   
   # obs-model plot (season)
   print(
@@ -148,16 +150,14 @@ for (i in 1:8) {
       y = !!sym(model_var[i])
     )) +
       geom_bin2d(binwidth = binwidth_value) +
-      labs(
-        title = "Observation (x) vs Model (y)",
-        subtitle = "Seasonal comparison"
-      ) +
+      labs(title = "Observation (x) vs Model (y)",
+           subtitle = "Seasonal comparison") +
       scale_fill_viridis_c(trans = "log") +
       geom_abline(slope = 1,
                   col = 'red') +
       coord_equal(xlim = axis_lims,
                   ylim = axis_lims) +
-      facet_wrap( ~ season)
+      facet_wrap(~ season)
   )
   
   # obs-model plot (year)
@@ -167,10 +167,8 @@ for (i in 1:8) {
       y = !!sym(model_var[i])
     )) +
       geom_bin2d(binwidth = binwidth_value) +
-      labs(
-        title = "Observation (x) vs Model (y)",
-        subtitle = "All years"
-      ) +
+      labs(title = "Observation (x) vs Model (y)",
+           subtitle = "All years") +
       scale_fill_viridis_c(trans = "log") +
       geom_abline(slope = 1, col = 'red') +
       coord_equal(xlim = axis_lims,
@@ -181,7 +179,7 @@ for (i in 1:8) {
   # Calculate variable offset
   GLODAP_model_var <- GLODAP_model_var %>%
     mutate(offset = !!sym(model_var[i]) -!!sym(obs_var[i]))
-
+  
   # Calculate annual mean offset
   GLODAP_model_var_year <- GLODAP_model_var %>%
     group_by(year) %>%
@@ -209,12 +207,6 @@ for (i in 1:8) {
       summarise(offset = mean(offset)) %>%
       ungroup()
     
-    print(
-    GLODAP_model_var_grid %>% 
-      ggplot(aes(offset)) +
-      geom_histogram()
-    )
-    
     # plot mean spatial distribution (model - obs)
     limit <- max(abs(GLODAP_model_var_grid$offset)) * c(-1, 1)
     print(
@@ -227,9 +219,14 @@ for (i in 1:8) {
         ) +
         coord_quickmap(expand = 0) +
         labs(
-          title = paste(model_var[i], "vs", obs_var[i], "mean offset spatial distribution"),
-          subtitle = paste("Depth intervals:", intervals[j], "-", intervals[j +
-                                                                              1]),
+          title = paste(
+            model_var[i],
+            "vs",
+            obs_var[i],
+            "mean offset spatial distribution"
+          ),
+          subtitle = paste("Depth interval:",
+                           intervals[j], "-", intervals[j + 1]),
           x = "Longitude",
           y = "Latitude"
         ) +
@@ -237,6 +234,16 @@ for (i in 1:8) {
                     aes(lon, lat), fill = "grey80")
     )
     
+    print(GLODAP_model_var_grid %>%
+            ggplot(aes(offset)) +
+            geom_histogram()) +
+      labs(
+        title = paste(model_var[i],
+                      "vs",
+                      obs_var[i],
+                      "mean offset per grid cell - histogram"),
+        subtitle = paste("Depth interval:",
+                         intervals[j], "-", intervals[j + 1]))
   }
 }
 
