@@ -247,22 +247,22 @@ for (i in 1:8) {
       ungroup()
     
     # plot mean spatial distribution (model - obs)
-    #limit <- max(abs(GLODAP_model_var_grid$offset)) * c(-1, 1)
-    limit <- quantile(abs(GLODAP_model_var_grid$offset), 0.95) * c(-1, 1)
+    limit <- quantile(abs(GLODAP_model_var_grid$offset), 0.98) * c(-1, 1)
     print(
       ggplot() +
         geom_raster(data = GLODAP_model_var_grid, aes(lon, lat, fill = offset)) +
         scale_fill_scico(
           palette = "vik",
           name = "offset",
-          limit = limit
+          limit = limit,
+          na.value = "red"
         ) +
         coord_quickmap(expand = 0) +
         labs(
           title = paste(model_var[i],
                         "-",
                         obs_var[i],
-                        " | mean offset per grid cell | color scale restricted to abs. 95th percentile"),
+                        " | mean offset per grid cell | color scale shows 98th percentile"),
           subtitle = paste("Depth interval:",
                            intervals[j], "-", intervals[j + 1], "m"),
           x = "Longitude",
@@ -281,7 +281,7 @@ for (i in 1:8) {
           title = paste(model_var[i],
                         " - ",
                         obs_var[i],
-                        "mean offset per grid cell | histogram + abs. 95th Percentile"),
+                        "mean offset per grid cell | histogram + abs. 98th Percentile"),
           subtitle = paste("Depth interval:",
                            intervals[j], "-", intervals[j + 1], "m")
         ) +
