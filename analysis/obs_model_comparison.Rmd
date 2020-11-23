@@ -67,7 +67,7 @@ GLODAP_model <-
 
 # Convert model units
 
-Model results are given in [mmol m^-3^], whereas GLODAP data are in [mu*mol kg^-1^]. This refers to the variables:
+Model results are given in [mmol m^-3^], whereas GLODAP data are in [\mu*mol kg^-1^]. This refers to the variables:
 
 - DIC  
 - ALK  
@@ -76,7 +76,7 @@ Model results are given in [mmol m^-3^], whereas GLODAP data are in [mu*mol kg^-
 - PO4  
 - SiO3  
 
-For comparison, model results were converted from [mmol m^-3^] to [mu*mol kg^-1^]
+For comparison, model results were converted from [mmol m^-3^] to [\mu*mol kg^-1^]
 
 ```{r model_unit_conversion}
 
