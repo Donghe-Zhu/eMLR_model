@@ -86,17 +86,19 @@ GLODAP_model <- GLODAP_model %>%
     t = TEMP_model,
     p = depth,
     p_ref = 10.1325
-  ))
+  ),
+  dens_factor = 1000/rho)
 
 GLODAP_model <- GLODAP_model %>%
   mutate(
-    DIC_model  <- DIC_model * (1000 / rho),
-    ALK_model  <- ALK_model * (1000 / rho),
-    O2_model   <- O2_model * (1000 / rho),
-    NO3_model  <- NO3_model * (1000 / rho),
-    PO4_model  <- PO4_model * (1000 / rho),
-    SiO3_model <- SiO3_model * (1000 / rho)
-  )
+    DIC_model  = DIC_model * dens_factor,
+    ALK_model  = ALK_model * dens_factor,
+    O2_model   = O2_model * dens_factor,
+    NO3_model  = NO3_model * dens_factor,
+    PO4_model  = PO4_model * dens_factor,
+    SiO3_model = SiO3_model * dens_factor
+  ) %>% 
+  select(-dens_factor)
 
 ```
 
