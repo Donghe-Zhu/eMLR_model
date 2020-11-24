@@ -102,7 +102,7 @@ path_model_analysis <-
 
 
 
-```{r subset_regridded_variable_forcing_data}
+```{r subset_regridded_variable_forcing_data, eval=FALSE}
 
 
 # set name of modelled to be subsetted
@@ -356,7 +356,7 @@ ggplot() +
 
 To derive Cant estimates for certain years, we calculate annual average DIC fields also for the output of a model with normal forcing.
 
-```{r calculate_normal_forcing_annual_average_DIC}
+```{r calculate_normal_forcing_annual_average_DIC, eval=FALSE}
 
 # set name of modelled to be subsetted
 model_ID <- "GECO_NYF_cstCO2"
