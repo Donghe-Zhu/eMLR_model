@@ -102,14 +102,14 @@ path_model_analysis <-
 
 
 
-```{r subset_regridded_variable_forcing_data, eval=FALSE}
+```{r subset_regridded_variable_forcing_data}
 
 
 # set name of modelled to be subsetted
 model_ID <- "GIAF_JRA_2020"
 
 # for loop across years
-years <- c("1982":"2018")
+years <- c("1982":"2019")
 
 for (i_year in years) {
   # for manual testing
@@ -120,10 +120,10 @@ for (i_year in years) {
     filter(year == i_year)
   
   # for loop across variables
-  variables <-
-    c("DIC")
   # variables <-
-  #   c("DIC", "ALK", "O2", "NO3", "PO4", "SiO3", "SALT", "TEMP")
+  #  c("DIC")
+   variables <-
+     c("DIC", "ALK", "O2", "AOU", "NO3", "PO4", "SiO3", "SALT", "TEMP")
   
   # create month x lat x lon grid of observations
   grid_subset <- GLODAP_year %>%
@@ -356,13 +356,13 @@ ggplot() +
 
 To derive Cant estimates for certain years, we calculate annual average DIC fields also for the output of a model with normal forcing.
 
-```{r calculate_normal_forcing_annual_average_DIC, eval=FALSE}
+```{r calculate_normal_forcing_annual_average_DIC}
 
 # set name of modelled to be subsetted
 model_ID <- "GECO_NYF_cstCO2"
 
 # for loop across years
-years <- c("1982":"2018")
+years <- c("1982":"2019")
 # years <- c("1982":"1983")
 
 for (i_year in years) {

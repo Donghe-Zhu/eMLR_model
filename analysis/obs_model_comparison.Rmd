@@ -72,6 +72,7 @@ Model results are given in [mmol m^-3^], whereas GLODAP data are in [\mu*mol kg^
 - DIC  
 - ALK  
 - O2  
+- AOU
 - NO3  
 - PO4  
 - SiO3  
@@ -122,6 +123,7 @@ obs_var <-
   c("tco2",
     "talk",
     "oxygen",
+    "aou",
     "nitrate",
     "phosphate",
     "silicate",
@@ -133,6 +135,7 @@ model_var <-
     "DIC_model",
     "ALK_model",
     "O2_model",
+    "AOU_model",
     "NO3_model",
     "PO4_model",
     "SiO3_model",
@@ -141,7 +144,7 @@ model_var <-
   )
 
 # too many figures, here instead of length(obs_var), just use the first two.
-for (i in 1:8) {
+for (i in 1:9) {
   # Uncomment line below for manual testing
   # i <- 2
   
