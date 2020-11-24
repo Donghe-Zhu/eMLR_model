@@ -443,7 +443,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">eMLR model loop</h1>
 <h4 class="author">Donghe Zhu and Dr Jens Daniel Müller</h4>
-<h4 class="date">22 November, 2020</h4>
+<h4 class="date">24 November, 2020</h4>
 
 </div>
 
@@ -468,7 +468,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-22
+<strong>Last updated:</strong> 2020-11-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -559,16 +559,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreebff4c74187b7493e99d6ccb3c0393556bcedae9etargetblankbff4c74a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/bff4c74187b7493e99d6ccb3c0393556bcedae9e" target="_blank">bff4c74</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreec95cabd88f1d06085669106a6015deed62cb3d72targetblankc95cabda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/c95cabd88f1d06085669106a6015deed62cb3d72" target="_blank">c95cabd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreebff4c74187b7493e99d6ccb3c0393556bcedae9etargetblankbff4c74a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltreec95cabd88f1d06085669106a6015deed62cb3d72targetblankc95cabda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/bff4c74187b7493e99d6ccb3c0393556bcedae9e" target="_blank">bff4c74</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/c95cabd88f1d06085669106a6015deed62cb3d72" target="_blank">c95cabd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -581,9 +581,6 @@ Ignored files:
     Ignored:    data/World_Ocean_Atlas_2018/
     Ignored:    data/model/
     Ignored:    output/model_subsetting/
-
-Unstaged changes:
-    Modified:   code/plotting_functions.R
 
 </code></pre>
 <p>
@@ -622,6 +619,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/c95cabd88f1d06085669106a6015deed62cb3d72/analysis/read_model_data.Rmd" target="_blank">c95cabd</a>
+</td>
+<td>
+jens-daniel-mueller
+</td>
+<td>
+2020-11-24
+</td>
+<td>
+rebuild after including AOU and 2019 data
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/922f1af05aa182fa63b2b11a4ebd18b34375c85e/analysis/read_model_data.Rmd" target="_blank">922f1af</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-24
+</td>
+<td>
+rerun with year 2019 and AOU
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/6b2e727183fd2ba4eb89434c93e4e2748e4c09d8/docs/read_model_data.html" target="_blank">6b2e727</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -876,7 +924,7 @@ path_model_analysis &lt;-
 model_ID &lt;- &quot;GIAF_JRA_2020&quot;
 
 # for loop across years
-years &lt;- c(&quot;1982&quot;:&quot;2018&quot;)
+years &lt;- c(&quot;1982&quot;:&quot;2019&quot;)
 
 for (i_year in years) {
   # for manual testing
@@ -887,10 +935,10 @@ for (i_year in years) {
     filter(year == i_year)
   
   # for loop across variables
-  variables &lt;-
-    c(&quot;DIC&quot;)
   # variables &lt;-
-  #   c(&quot;DIC&quot;, &quot;ALK&quot;, &quot;O2&quot;, &quot;NO3&quot;, &quot;PO4&quot;, &quot;SiO3&quot;, &quot;SALT&quot;, &quot;TEMP&quot;)
+  #  c(&quot;DIC&quot;)
+   variables &lt;-
+     c(&quot;DIC&quot;, &quot;ALK&quot;, &quot;O2&quot;, &quot;AOU&quot;, &quot;NO3&quot;, &quot;PO4&quot;, &quot;SiO3&quot;, &quot;SALT&quot;, &quot;TEMP&quot;)
   
   # create month x lat x lon grid of observations
   grid_subset &lt;- GLODAP_year %&gt;%
@@ -1120,7 +1168,7 @@ ggplot() +
 model_ID &lt;- &quot;GECO_NYF_cstCO2&quot;
 
 # for loop across years
-years &lt;- c(&quot;1982&quot;:&quot;2018&quot;)
+years &lt;- c(&quot;1982&quot;:&quot;2019&quot;)
 # years &lt;- c(&quot;1982&quot;:&quot;1983&quot;)
 
 for (i_year in years) {
