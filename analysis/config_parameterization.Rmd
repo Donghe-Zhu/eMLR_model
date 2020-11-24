@@ -39,7 +39,7 @@ parameters <-
     lon_Atl_section = 335.5,
     lat_section_N = 59.5,
     lat_section_S = -59.5,
-    lon_Pac_section = 189.5,
+    lon_Pac_section = 190.5,
     lon_middle = 50.5,
     lat_max = 65,
     lat_min = -85,
