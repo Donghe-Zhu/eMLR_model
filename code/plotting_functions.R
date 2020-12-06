@@ -124,6 +124,9 @@ surface_GLODAP <- function(df1, df2, df3, var) {
   name_var <- var
   var <- sym(var)
 
+  df1 <- df1 %>%
+    filter(lat < 65)
+
   df_sub <- df2 %>%
     filter(lat < 65)
 
