@@ -89,6 +89,17 @@ Here we subset regridded (1x1) data from the model with variable forcing, accord
 
 Simultaneously, we calculate annual model summary statistics and annual average DIC fields.
 
+Besides, Model results are given in [mmol m^-3^], whereas GLODAP data are in [µmol kg^-1^]. This refers to the variables:
+
+- DIC  
+- ALK  
+- O2  
+- NO3  
+- PO4  
+- SiO3  
+
+For comparison, model results were converted from [mmol m^-3^] to [µmol kg^-1^]
+
 ```{r set_absolute_path}
 
 # set path to model output files
@@ -112,7 +123,7 @@ years <- c("1982":"2019")
 
 for (i_year in years) {
   # for manual testing
- # i_year <- years[1]
+  # i_year <- years[1]
   
   # select GLODAP data for that year
   GLODAP_year <- GLODAP %>%
@@ -135,7 +146,7 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     # Uncomment line below for manual testing
-   # i_variable <- variables[1]
+    # i_variable <- variables[1]
     
     # read list of all files
     file <-
@@ -178,7 +189,7 @@ for (i_year in years) {
     
     # mutate variables and filter NaN value
     variable_data_tibble <- variable_data_tibble %>%
-      mutate(month = month(time_mon), !!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
+      mutate(month = month(time_mon),!!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
       select(-time_mon)
     
     # calculate density
@@ -201,7 +212,7 @@ for (i_year in years) {
           ),
           dens_factor = 1000000 / rho
         ) %>%
-        select(-so,-thetao)
+        select(-so, -thetao)
     }
     
     # unit transfer from mol/m3 to µmol/kg
@@ -209,7 +220,7 @@ for (i_year in years) {
       unit_trans <- unit_trans %>%
         mutate(!!sym(i_variable) := !!sym(i_variable) * dens_factor)
       variable_data_tibble <- unit_trans %>%
-        select(lon, lat, depth, !!sym(i_variable), month)
+        select(lon, lat, depth,!!sym(i_variable), month)
       unit_trans <- unit_trans %>%
         select(-!!sym(i_variable))
     }
@@ -249,7 +260,7 @@ for (i_year in years) {
       filter(n > 1) %>%
       group_by(lon, lat, month) %>%
       arrange(depth) %>%
-      mutate(!!sym(i_variable) := approxfun(depth, !!sym(i_variable), rule = 2)(depth)) %>%
+      mutate(!!sym(i_variable) := approxfun(depth,!!sym(i_variable), rule = 2)(depth)) %>%
       ungroup()
     
     # subsetted interpolated values at observation depth
@@ -324,7 +335,7 @@ for (i_year in years) {
 # write file for GLODAP observations + subsetted model variables
 GLODAP %>%
   write_csv(paste(
-    paste(path_model_analysis, "glodapv2_2020_synthetic_data/", sep = ""),
+    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
     "GLODAP_with_cmorized_subset.csv",
     sep = ""
   ))
@@ -361,13 +372,13 @@ model_obs_interpo <- model_obs %>%
   filter(n > 1) %>%
   group_by(lon, lat, month) %>%
   arrange(month, lat, lon, depth) %>%
-  mutate(!!sym(paste(i_variable, "interpolate", sep = "_")) := approxfun(depth,!!sym(i_variable), rule = 2)(depth)) %>%
+  mutate(!!sym(paste(i_variable, "interpolate", sep = "_")) := approxfun(depth, !!sym(i_variable), rule = 2)(depth)) %>%
   ungroup()
 
 ggplot() +
   geom_path(
     data = model_obs_interpo %>%
-      filter(lat == 39.5, lon == 348.5, !is.na(!!sym(i_variable)), month == 11) %>%
+      filter(lat == 39.5, lon == 348.5,!is.na(!!sym(i_variable)), month == 11) %>%
       arrange(depth),
     aes(!!sym(i_variable), depth, col = "model")
   ) +
@@ -380,7 +391,7 @@ ggplot() +
   ) +
   geom_point(
     data = model_obs_interpo %>%
-      filter(lat == 39.5, lon == 348.5, !is.na(!!sym(i_variable)), month == 11) %>%
+      filter(lat == 39.5, lon == 348.5,!is.na(!!sym(i_variable)), month == 11) %>%
       arrange(depth),
     aes(!!sym(i_variable), depth, col = "model")
   ) +
@@ -411,7 +422,7 @@ for (i_year in years) {
     c("so", "thetao", "dissic")
   
   for (i_variable in variables) {
-  #  i_variable <- variables[1]
+    #  i_variable <- variables[1]
     
     file <-
       list.files(
@@ -468,17 +479,17 @@ for (i_year in years) {
   
   # calculate density and transfer unit from mol/m3 to µmol/kg
   normal_data_tibble <- normal_data_tibble %>%
-        mutate(
-          rho = gsw_pot_rho_t_exact(
-            SA = so,
-            t = thetao,
-            p = depth,
-            p_ref = 10.1325
-          ),
-          dens_factor = 1000000 / rho,
-          dissic = dissic * dens_factor
-        ) %>%
-        select(-so,-thetao, -rho, -dens_factor)
+    mutate(
+      rho = gsw_pot_rho_t_exact(
+        SA = so,
+        t = thetao,
+        p = depth,
+        p_ref = 10.1325
+      ),
+      dens_factor = 1000000 / rho,
+      dissic = dissic * dens_factor
+    ) %>%
+    select(-so, -thetao,-rho,-dens_factor)
   
   # calculate annual average DIC
   normal_data_tibble_annual_average <- normal_data_tibble %>%
@@ -491,8 +502,9 @@ for (i_year in years) {
   # write file for annually averaged model DIC
   normal_data_tibble_annual_average %>%
     write_csv(paste(
-    paste(path_model_analysis, "cmorized_clim/",model_ID, sep = ""),
-      paste("/dissic_annual_average_", i_year, ".csv", sep = ""), sep = ""
+      paste(path_model_analysis, "cmorized_clim/", model_ID, sep = ""),
+      paste("/dissic_annual_average_", i_year, ".csv", sep = ""),
+      sep = ""
     ))
   
 }
@@ -503,31 +515,33 @@ for (i_year in years) {
 
 The model Cant can be calculate as the difference between two model runs. Currently, this is performed for year 1994 and 2007.
 
-```{r calculate_Cant, eval=FALSE}
+```{r calculate_Cant}
 
 # read in variable and normal forcing DIC data
 years <- c("1994", "2007")
 
 for (i_year in years) {
   # for manual testing
-   i_year <- years[1]
+  i_year <- years[1]
   
   # read in variable forcing annual average DIC data
   variable_annual_average_DIC <-
     read_csv(paste(
-    paste(path_model_analysis, "cmorized_clim/A/", sep = ""),
-      paste("dissic_annual_average_", i_year, ".csv", sep = ""), sep = ""
-    )) %>% 
+      paste(path_model_analysis, "cmorized_clim/A/", sep = ""),
+      paste("dissic_annual_average_", i_year, ".csv", sep = ""),
+      sep = ""
+    )) %>%
     rename(DIC_variable = dissic)
   
   # read in normal forcing annual average DIC data
   normal_annual_average_DIC <-
     read_csv(paste(
-    paste(path_model_analysis, "cmorized_clim/B/", sep = ""),
-      paste("dissic_annual_average_", i_year, ".csv", sep = ""), sep = ""
-    )) %>% 
+      paste(path_model_analysis, "cmorized_clim/B/", sep = ""),
+      paste("dissic_annual_average_", i_year, ".csv", sep = ""),
+      sep = ""
+    )) %>%
     rename(DIC_normal = dissic)
-
+  
   # calculate Cant
   cant <-
     full_join(variable_annual_average_DIC, normal_annual_average_DIC) %>%

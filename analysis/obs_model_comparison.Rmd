@@ -21,6 +21,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(tidyverse)
 library(scico)
 library(gsw)
+library(marelac)
 ```
 
 ```{r read_mask_files, include = FALSE}
@@ -58,48 +59,45 @@ path_model_analysis <-
 # read file for GLODAP observations + subsetted model variables
 GLODAP_model <- 
   read_csv(paste(
-    paste(path_model_analysis, "glodapv2_2020_synthetic_data/", sep = ""),
-    "GLODAP_with_model_subset.csv",
+    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
+    "GLODAP_with_cmorized_subset.csv",
     sep = ""
   ))
 
 ```
 
-# Convert model units
 
-Model results are given in [mmol m^-3^], whereas GLODAP data are in [\mu*mol kg^-1^]. This refers to the variables:
+# Calculate AOU
 
-- DIC  
-- ALK  
-- O2  
-- AOU
-- NO3  
-- PO4  
-- SiO3  
-
-For comparison, model results were converted from [mmol m^-3^] to [\mu*mol kg^-1^]
-
-```{r model_unit_conversion}
+```{r calculate_AOU}
 
 GLODAP_model <- GLODAP_model %>%
-  mutate(rho = gsw_pot_rho_t_exact(
-    SA = SALT_model,
-    t = TEMP_model,
-    p = depth,
-    p_ref = 10.1325
-  ),
-  dens_factor = 1000/rho)
-
-GLODAP_model <- GLODAP_model %>%
+  filter(!is.na(so_model)) %>%
   mutate(
-    DIC_model  = DIC_model * dens_factor,
-    ALK_model  = ALK_model * dens_factor,
-    O2_model   = O2_model * dens_factor,
-    NO3_model  = NO3_model * dens_factor,
-    PO4_model  = PO4_model * dens_factor,
-    SiO3_model = SiO3_model * dens_factor
-  ) %>% 
-  select(-dens_factor)
+    oxygen_sat_m3 = gas_satconc(
+      S = so_model,
+      t = thetao_model,
+      P = 1.013253,
+      species = "O2"
+    ),
+    rho =
+      gsw_pot_rho_t_exact(
+        SA = so_model,
+        t = thetao_model,
+        p = depth,
+        p_ref = 10.1325
+      ),
+    oxygen_sat_kg = oxygen_sat_m3 * (1000 / rho),
+    aou_model = oxygen_sat_kg - o2_model
+  ) %>%
+  select(-oxygen_sat_kg, -oxygen_sat_m3)
+
+GLODAP_model %>%
+  write_csv(paste(
+    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
+    "GLODAP_with_cmorized_subset_AOU.csv",
+    sep = ""
+  ))
 
 ```
 
@@ -111,7 +109,6 @@ GLODAP_model <- GLODAP_model %>%
 GLODAP_model <- inner_join(GLODAP_model, basinmask)
 
 ```
-
 
 
 # Observation and model data comparison
@@ -132,21 +129,21 @@ obs_var <-
 
 model_var <-
   c(
-    "DIC_model",
-    "ALK_model",
-    "O2_model",
-    "AOU_model",
-    "NO3_model",
-    "PO4_model",
-    "SiO3_model",
-    "SALT_model",
-    "TEMP_model"
+    "dissic_model",
+    "talk_model",
+    "o2_model",
+    "aou_model",
+    "no3_model",
+    "po4_model",
+    "si_model",
+    "so_model",
+    "thetao_model"
   )
 
 # too many figures, here instead of length(obs_var), just use the first two.
 for (i in 1:9) {
   # Uncomment line below for manual testing
-  # i <- 2
+  # i <- 1
   
   # select correlated observation and model variable
   GLODAP_model_var <- GLODAP_model %>%
@@ -183,8 +180,6 @@ for (i in 1:9) {
   binwidth_value <- (axis_lims$max_value - axis_lims$min_value) / 40
   axis_lims <- c(axis_lims$min_value, axis_lims$max_value)
   
-  
-  
   # obs-model plot (season)
   print(
     ggplot(GLODAP_model_var, aes(
@@ -194,7 +189,7 @@ for (i in 1:9) {
       geom_bin2d(binwidth = binwidth_value) +
       labs(title = "Observation (x) vs Model (y)",
            subtitle = "Seasonal comparison") +
-      scale_fill_viridis_c(trans = "log") +
+      scale_fill_viridis_c(trans = "log10") +
       geom_abline(slope = 1,
                   col = 'red') +
       coord_equal(xlim = axis_lims,
@@ -211,7 +206,7 @@ for (i in 1:9) {
       geom_bin2d(binwidth = binwidth_value) +
       labs(title = "Observation (x) vs Model (y)",
            subtitle = "All years") +
-      scale_fill_viridis_c(trans = "log") +
+      scale_fill_viridis_c(trans = "log10") +
       geom_abline(slope = 1, col = 'red') +
       coord_equal(xlim = axis_lims,
                   ylim = axis_lims)
@@ -304,8 +299,9 @@ A set of model summary statistics was calculated for each relevant variable and 
 # write file for model summary statistics
 model_stats <-
   read_csv(paste(
-    paste(path_model_analysis, "diagnostics/", sep = ""),
-    "GIAF_JRA_2020_summary_stats.csv"
+    paste(path_model_analysis, "cmorized_diag/", sep = ""),
+    "A_summary_stats.csv",
+    sep = ""
   ))
 
 ```
