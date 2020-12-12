@@ -53,7 +53,7 @@ theme_set(theme_bw())
 
 # set path to model analysis/subsetting output files
 path_model_analysis <-
-  "/nfs/kryo/work/loher/CESM_output/RECCAP2/analysis/"
+  "/net/kryo/work/loher/CESM_output/RECCAP2/analysis/"
 
 # read file for GLODAP observations + subsetted model variables
 GLODAP_model <- 
