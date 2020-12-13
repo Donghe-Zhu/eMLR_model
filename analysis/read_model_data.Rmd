@@ -85,11 +85,11 @@ GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
 
 # Subset model data according to GLODAP observation
 
-Here we subset regridded (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.
+Here we subset cmorized (1x1) data from the model with variable forcing, according to the presence of GLODAP observations in a previously cleaned file.
 
 Simultaneously, we calculate annual model summary statistics and annual average DIC fields.
 
-Besides, Model results are given in [mmol m^-3^], whereas GLODAP data are in [µmol kg^-1^]. This refers to the variables:
+Besides, Model results are given in [mol m^-3^], whereas GLODAP data are in [µmol kg^-1^]. This refers to the variables:
 
 - DIC  
 - ALK  
@@ -98,7 +98,7 @@ Besides, Model results are given in [mmol m^-3^], whereas GLODAP data are in [µ
 - PO4  
 - SiO3  
 
-For comparison, model results were converted from [mmol m^-3^] to [µmol kg^-1^]
+For comparison, model results were converted from [mol m^-3^] to [µmol kg^-1^]
 
 ```{r set_absolute_path}
 
@@ -187,7 +187,7 @@ for (i_year in years) {
     variable_data_tibble <- variable_data_tibble %>%
       mutate(lon = if_else(lon < 20, lon + 360, lon))
     
-    # mutate variables and filter NaN value
+    # mutate variables
     variable_data_tibble <- variable_data_tibble %>%
       mutate(month = month(time_mon),!!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
       select(-time_mon)
