@@ -123,6 +123,7 @@ wflow_publish(here::here(
     "config_parameterization.Rmd",
     "read_GLODAP_data.Rmd",
     "read_model_data.Rmd",
+    "read_model_data_random.Rmd",
     "obs_model_comparison.Rmd"
   )
 ),

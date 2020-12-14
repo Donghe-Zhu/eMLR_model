@@ -17,6 +17,8 @@ navbar:
       href: read_GLODAP_data.html
     - text: Model
       href: read_model_data.html
+    - text: Random sample
+      href: read_model_data_random.html
   - text: Analysis
     href: obs_model_comparison.html
   right:

@@ -148,4 +148,3 @@ surface_GLODAP <- function(df1, df2, df3, var) {
                 aes(lon, lat), fill = "grey80")
 
 }
-
