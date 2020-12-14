@@ -446,7 +446,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">eMLR model loop</h1>
 <h4 class="author">Donghe Zhu and Dr Jens Daniel Müller</h4>
-<h4 class="date">13 December, 2020</h4>
+<h4 class="date">14 December, 2020</h4>
 
 </div>
 
@@ -471,7 +471,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-12-13
+<strong>Last updated:</strong> 2020-12-14
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -562,16 +562,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree456371005d62e9979f51918bb75e68cb6b6fe1b9targetblank4563710a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/456371005d62e9979f51918bb75e68cb6b6fe1b9" target="_blank">4563710</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree0f3184a480bba49633937f832196bf9fb6fd4cc1targetblank0f3184aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/0f3184a480bba49633937f832196bf9fb6fd4cc1" target="_blank">0f3184a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree456371005d62e9979f51918bb75e68cb6b6fe1b9targetblank4563710a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomDongheZhueMLRmodeltree0f3184a480bba49633937f832196bf9fb6fd4cc1targetblank0f3184aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/456371005d62e9979f51918bb75e68cb6b6fe1b9" target="_blank">4563710</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/Donghe-Zhu/eMLR_model/tree/0f3184a480bba49633937f832196bf9fb6fd4cc1" target="_blank">0f3184a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -584,11 +584,6 @@ Ignored files:
     Ignored:    data/World_Ocean_Atlas_2018/
     Ignored:    data/model/
     Ignored:    output/model_subsetting/
-
-Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   code/Workflowr_project_managment_jdm.R
-    Modified:   code/plotting_functions.R
 
 </code></pre>
 <p>
@@ -632,6 +627,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/0f3184a480bba49633937f832196bf9fb6fd4cc1/analysis/read_model_data_random.Rmd" target="_blank">0f3184a</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-14
+</td>
+<td>
+local rebuild
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/Donghe-Zhu/eMLR_model/9591812b398bb977dacba056fe36a76b21a89489/docs/read_model_data_random.html" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/Donghe-Zhu/eMLR_model/blob/456371005d62e9979f51918bb75e68cb6b6fe1b9/analysis/read_model_data_random.Rmd" target="_blank">4563710</a>
 </td>
 <td>
@@ -659,10 +688,12 @@ library(lubridate)
 library(rqdatatable)
 library(gsw)
 library(marelac)</code></pre>
-<div id="read-glodap-clean-data" class="section level1">
-<h1><span class="header-section-number">1</span> Read GLODAP clean data</h1>
+<div id="read-glodap-clean-data-and-apply-the-basinmask" class="section level1">
+<h1><span class="header-section-number">1</span> Read GLODAP clean data and apply the basinmask</h1>
 <pre class="r"><code>GLODAP &lt;- read_csv(here::here(&quot;data/GLODAPv2_2020&quot;,
-                              &quot;GLODAPv2.2020_Merged_clean.csv&quot;))</code></pre>
+                              &quot;GLODAPv2.2020_Merged_clean.csv&quot;))
+GLODAP &lt;- inner_join(GLODAP, basinmask) %&gt;%
+  select(-basin_AIP)</code></pre>
 </div>
 <div id="ramdomly-subset-cmorized-model-data" class="section level1">
 <h1><span class="header-section-number">2</span> Ramdomly subset cmorized model data</h1>
@@ -704,15 +735,12 @@ model &lt;- model %&gt;%
   mutate(lon = if_else(lon &lt; 20, lon + 360, lon)) %&gt;%
   mutate(month = month(time_mon))
 
-# model grid
-model_grid &lt;- model %&gt;%
-  select(month, lat, lon) %&gt;%
-    unique()
-  
+# only consider model grids within basinmask
+model &lt;- inner_join(model, basinmask)
+
 # model grid with depth
 model_grid_depth &lt;- model %&gt;%
-  select(month, lat, lon, depth) %&gt;%
-    unique()
+  select(month, lat, lon, depth)
 
 rm(model)
 
@@ -722,31 +750,15 @@ model_ID &lt;- &quot;A&quot;
 # for loop across years
 years &lt;- c(&quot;1982&quot;:&quot;2019&quot;)
 
+# set equal number of random model sampling will be made for each year
+n = floor(nrow(GLODAP) / length(years))
+
 for (i_year in years) {
   # for manual testing
-  # i_year &lt;- years[1]
+ # i_year &lt;- years[1]
   
-  # select GLODAP data for that year
-  GLODAP_year &lt;- GLODAP %&gt;%
-    filter(year == i_year)
-  
-  # create month x lat x lon grid of observations
-  GLODAP_grid &lt;- GLODAP_year %&gt;%
-    select(month, lat, lon) %&gt;%
-    unique()
-  
-  # create month x lat x lon x depth grid of observations
-  GLODAP_grid_depth &lt;- GLODAP_year %&gt;%
-    select(month, lat, lon, depth) %&gt;%
-    unique()
-  
-  # random sample n = GLODAP_grid from model grid
-  model_resample_grid &lt;- sample_n(model_grid, nrow(GLODAP_grid))
-  
-  # random sample n&#39; = GLODAP_grid_depth from model grid depth within above selected model grid
-  model_resample_grid_depth &lt;-
-    sample_n(left_join(model_resample_grid, model_grid_depth),
-             nrow(GLODAP_grid_depth)) %&gt;%
+  # random sample n = GLODAP / years from model grid depth
+  model_resample_grid_depth &lt;- sample_n(model_grid_depth, n) %&gt;%
     arrange(lat, lon, depth, month) %&gt;%
     mutate(year = i_year)
   
@@ -757,7 +769,7 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     # Uncomment line below for manual testing
-    # i_variable &lt;- variables[1]
+    #i_variable &lt;- variables[1]
     
     # read list of all files
     file &lt;-
@@ -798,51 +810,21 @@ for (i_year in years) {
     variable_data_tibble &lt;- variable_data_tibble %&gt;%
       mutate(lon = if_else(lon &lt; 20, lon + 360, lon))
     
+    # only consider model grids within basinmask
+    variable_data_tibble &lt;- inner_join(variable_data_tibble, basinmask) %&gt;%
+      select(-basin_AIP)
+    
     # mutate variables
     variable_data_tibble &lt;- variable_data_tibble %&gt;%
-      mutate(month = month(time_mon),!!sym(i_variable) := as.numeric(!!sym(i_variable))) %&gt;%
+      mutate(month = month(time_mon), !!sym(i_variable) := as.numeric(!!sym(i_variable))) %&gt;%
       select(-time_mon)
     
-    # calculate density
-    if (exists(&quot;unit_trans&quot;)) {
-      unit_trans &lt;- left_join(unit_trans, variable_data_tibble)
-    }
-    
-    if (!exists(&quot;unit_trans&quot;)) {
-      unit_trans &lt;- variable_data_tibble
-    }
-    
-    if (i_variable == &quot;thetao&quot;) {
-      unit_trans &lt;- unit_trans %&gt;%
-        mutate(
-          rho = gsw_pot_rho_t_exact(
-            SA = so,
-            t = thetao,
-            p = depth,
-            p_ref = 10.1325
-          ),
-          dens_factor = 1000000 / rho
-        ) %&gt;%
-        select(-so,-thetao)
-    }
-    
-    # unit transfer from mol/m3 to µmol/kg
-    if (i_variable != &quot;so&quot; &amp;&amp; i_variable != &quot;thetao&quot;) {
-      unit_trans &lt;- unit_trans %&gt;%
-        mutate(!!sym(i_variable) := !!sym(i_variable) * dens_factor)
-      variable_data_tibble &lt;- unit_trans %&gt;%
-        select(lon, lat, depth, !!sym(i_variable), month)
-      unit_trans &lt;- unit_trans %&gt;%
-        select(-!!sym(i_variable))
-    }
-    
-    # random sample for each model variable each year
-    model_resample_grid_depth &lt;- left_join(model_resample_grid_depth, variable_data_tibble)
+    # random sample for each model variable in specific year
+    model_resample_grid_depth &lt;-
+      left_join(model_resample_grid_depth, variable_data_tibble)
   }
   
-  rm(unit_trans)
-  
-  # add ramdom sample model subset together
+  # add random sample model subset for each year together
   if (exists(&quot;model_resample&quot;)) {
     model_resample &lt;-
       bind_rows(model_resample, model_resample_grid_depth)
@@ -854,6 +836,23 @@ for (i_year in years) {
   
 }
 
+# unit transfer from mol/m3 to µmol/kg
+model_resample &lt;- model_resample %&gt;%
+  mutate(
+    rho = gsw_pot_rho_t_exact(
+      SA = so,
+      t = thetao,
+      p = depth,
+      p_ref = 10.1325
+    ),
+    dissic = dissic * (1000000 / rho),
+    talk = talk * (1000000 / rho),
+    o2 = o2 * (1000000 / rho),
+    no3 = no3 * (1000000 / rho),
+    po4 = po4 * (1000000 / rho),
+    si = si * (1000000 / rho)
+  )
+
 # calculate AOU
 model_resample &lt;- model_resample %&gt;%
   mutate(
@@ -863,17 +862,10 @@ model_resample &lt;- model_resample %&gt;%
       P = 1.013253,
       species = &quot;O2&quot;
     ),
-    rho =
-      gsw_pot_rho_t_exact(
-        SA = so,
-        t = thetao,
-        p = depth,
-        p_ref = 10.1325
-      ),
     oxygen_sat_kg = oxygen_sat_m3 * (1000 / rho),
     aou = oxygen_sat_kg - o2
   ) %&gt;%
-  select(-oxygen_sat_kg, -oxygen_sat_m3)
+  select(-oxygen_sat_kg,-oxygen_sat_m3)
 
 # write file for random model sampling
 model_resample %&gt;%
@@ -909,7 +901,196 @@ for (i_year in years) {
                   aes(lon, lat), fill = &quot;grey80&quot;)
   )
 }</code></pre>
-<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_random_sample_cmorized_data_grid-1">
+Past versions of plot_random_sample_cmorized_data_grid-1.png
+</button>
+</p>
+<div id="fig-plot_random_sample_cmorized_data_grid-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9591812b398bb977dacba056fe36a76b21a89489/docs/figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-1.png" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_random_sample_cmorized_data_grid-2">
+Past versions of plot_random_sample_cmorized_data_grid-2.png
+</button>
+</p>
+<div id="fig-plot_random_sample_cmorized_data_grid-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9591812b398bb977dacba056fe36a76b21a89489/docs/figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-2.png" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_random_sample_cmorized_data_grid-3">
+Past versions of plot_random_sample_cmorized_data_grid-3.png
+</button>
+</p>
+<div id="fig-plot_random_sample_cmorized_data_grid-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9591812b398bb977dacba056fe36a76b21a89489/docs/figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-3.png" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_random_sample_cmorized_data_grid-4">
+Past versions of plot_random_sample_cmorized_data_grid-4.png
+</button>
+</p>
+<div id="fig-plot_random_sample_cmorized_data_grid-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9591812b398bb977dacba056fe36a76b21a89489/docs/figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-4.png" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot_random_sample_cmorized_data_grid-5">
+Past versions of plot_random_sample_cmorized_data_grid-5.png
+</button>
+</p>
+<div id="fig-plot_random_sample_cmorized_data_grid-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/Donghe-Zhu/eMLR_model/blob/9591812b398bb977dacba056fe36a76b21a89489/docs/figure/read_model_data_random.Rmd/plot_random_sample_cmorized_data_grid-5.png" target="_blank">9591812</a>
+</td>
+<td>
+Donghe-Zhu
+</td>
+<td>
+2020-12-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
