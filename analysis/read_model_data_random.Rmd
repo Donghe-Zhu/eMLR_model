@@ -86,9 +86,9 @@ GLODAP <- inner_join(GLODAP, basinmask) %>%
 
 ```
 
-# Ramdomly subset cmorized model data
+# Randomly subset cmorized model data
 
-Here we ramdomly subset cmorized (1x1) data from the model with variable forcing, according to the number of GLODAP observations (latxlon) in each year from a previously cleaned file.
+Here we randomly subset cmorized (1x1) data from the model with variable forcing, according to the total number of GLODAP observations for the whole period from a previously cleaned file. The number for the annual subset remains the same for each year, which could be expressed by the total number of observations divided by number of years.
 
 Besides, Model results are given in [mol m^-3^], whereas GLODAP data are in [µmol kg^-1^]. This refers to the variables:
 
