@@ -75,12 +75,14 @@ theme_set(theme_bw())
 ```
 
 
-# Read GLODAP clean data
+# Read GLODAP clean data and apply the basinmask
 
 ```{r read_GLODAP_clean_data}
 
 GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
                               "GLODAPv2.2020_Merged_clean.csv"))
+GLODAP <- inner_join(GLODAP, basinmask) %>%
+  select(-basin_AIP)
 
 ```
 
@@ -128,15 +130,12 @@ model <- model %>%
   mutate(lon = if_else(lon < 20, lon + 360, lon)) %>%
   mutate(month = month(time_mon))
 
-# model grid
-model_grid <- model %>%
-  select(month, lat, lon) %>%
-    unique()
-  
+# only consider model grids within basinmask
+model <- inner_join(model, basinmask)
+
 # model grid with depth
 model_grid_depth <- model %>%
-  select(month, lat, lon, depth) %>%
-    unique()
+  select(month, lat, lon, depth)
 
 rm(model)
 
@@ -146,31 +145,15 @@ model_ID <- "A"
 # for loop across years
 years <- c("1982":"2019")
 
+# set equal number of random model sampling will be made for each year
+n = floor(nrow(GLODAP) / length(years))
+
 for (i_year in years) {
   # for manual testing
-  # i_year <- years[1]
+ # i_year <- years[1]
   
-  # select GLODAP data for that year
-  GLODAP_year <- GLODAP %>%
-    filter(year == i_year)
-  
-  # create month x lat x lon grid of observations
-  GLODAP_grid <- GLODAP_year %>%
-    select(month, lat, lon) %>%
-    unique()
-  
-  # create month x lat x lon x depth grid of observations
-  GLODAP_grid_depth <- GLODAP_year %>%
-    select(month, lat, lon, depth) %>%
-    unique()
-  
-  # random sample n = GLODAP_grid from model grid
-  model_resample_grid <- sample_n(model_grid, nrow(GLODAP_grid))
-  
-  # random sample n' = GLODAP_grid_depth from model grid depth within above selected model grid
-  model_resample_grid_depth <-
-    sample_n(left_join(model_resample_grid, model_grid_depth),
-             nrow(GLODAP_grid_depth)) %>%
+  # random sample n = GLODAP / years from model grid depth
+  model_resample_grid_depth <- sample_n(model_grid_depth, n) %>%
     arrange(lat, lon, depth, month) %>%
     mutate(year = i_year)
   
@@ -181,7 +164,7 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     # Uncomment line below for manual testing
-    # i_variable <- variables[1]
+    #i_variable <- variables[1]
     
     # read list of all files
     file <-
@@ -222,51 +205,21 @@ for (i_year in years) {
     variable_data_tibble <- variable_data_tibble %>%
       mutate(lon = if_else(lon < 20, lon + 360, lon))
     
+    # only consider model grids within basinmask
+    variable_data_tibble <- inner_join(variable_data_tibble, basinmask) %>%
+      select(-basin_AIP)
+    
     # mutate variables
     variable_data_tibble <- variable_data_tibble %>%
-      mutate(month = month(time_mon),!!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
+      mutate(month = month(time_mon), !!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
       select(-time_mon)
     
-    # calculate density
-    if (exists("unit_trans")) {
-      unit_trans <- left_join(unit_trans, variable_data_tibble)
-    }
-    
-    if (!exists("unit_trans")) {
-      unit_trans <- variable_data_tibble
-    }
-    
-    if (i_variable == "thetao") {
-      unit_trans <- unit_trans %>%
-        mutate(
-          rho = gsw_pot_rho_t_exact(
-            SA = so,
-            t = thetao,
-            p = depth,
-            p_ref = 10.1325
-          ),
-          dens_factor = 1000000 / rho
-        ) %>%
-        select(-so,-thetao)
-    }
-    
-    # unit transfer from mol/m3 to µmol/kg
-    if (i_variable != "so" && i_variable != "thetao") {
-      unit_trans <- unit_trans %>%
-        mutate(!!sym(i_variable) := !!sym(i_variable) * dens_factor)
-      variable_data_tibble <- unit_trans %>%
-        select(lon, lat, depth, !!sym(i_variable), month)
-      unit_trans <- unit_trans %>%
-        select(-!!sym(i_variable))
-    }
-    
-    # random sample for each model variable each year
-    model_resample_grid_depth <- left_join(model_resample_grid_depth, variable_data_tibble)
+    # random sample for each model variable in specific year
+    model_resample_grid_depth <-
+      left_join(model_resample_grid_depth, variable_data_tibble)
   }
   
-  rm(unit_trans)
-  
-  # add ramdom sample model subset together
+  # add random sample model subset for each year together
   if (exists("model_resample")) {
     model_resample <-
       bind_rows(model_resample, model_resample_grid_depth)
@@ -278,6 +231,23 @@ for (i_year in years) {
   
 }
 
+# unit transfer from mol/m3 to µmol/kg
+model_resample <- model_resample %>%
+  mutate(
+    rho = gsw_pot_rho_t_exact(
+      SA = so,
+      t = thetao,
+      p = depth,
+      p_ref = 10.1325
+    ),
+    dissic = dissic * (1000000 / rho),
+    talk = talk * (1000000 / rho),
+    o2 = o2 * (1000000 / rho),
+    no3 = no3 * (1000000 / rho),
+    po4 = po4 * (1000000 / rho),
+    si = si * (1000000 / rho)
+  )
+
 # calculate AOU
 model_resample <- model_resample %>%
   mutate(
@@ -287,17 +257,10 @@ model_resample <- model_resample %>%
       P = 1.013253,
       species = "O2"
     ),
-    rho =
-      gsw_pot_rho_t_exact(
-        SA = so,
-        t = thetao,
-        p = depth,
-        p_ref = 10.1325
-      ),
     oxygen_sat_kg = oxygen_sat_m3 * (1000 / rho),
     aou = oxygen_sat_kg - o2
   ) %>%
-  select(-oxygen_sat_kg, -oxygen_sat_m3)
+  select(-oxygen_sat_kg,-oxygen_sat_m3)
 
 # write file for random model sampling
 model_resample %>%
