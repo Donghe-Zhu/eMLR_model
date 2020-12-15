@@ -1,5 +1,5 @@
 ---
-title: "eMLR model loop"
+title: "Model random subsetting"
 author: "Donghe Zhu and Dr Jens Daniel Müller"
 date:  "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
