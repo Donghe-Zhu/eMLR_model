@@ -286,22 +286,80 @@ model_resample <-
 # plot random sampling cmorized grids in each year
 years <- c("1982", "1990", "2000", "2010", "2019")
 for (i_year in years) {
+  # i_year <- years[1]
+  
   model_resample_year <- model_resample %>%
     filter(year == i_year)
   
   print(
     ggplot() +
-      geom_point(data = model_resample_year,
-                 aes(lon, lat), colour = "red") +
+      geom_bin2d(data = model_resample_year,
+                 aes(lon, lat),
+                 binwidth = 1) +
+      scale_fill_viridis_c(direction = -1) +
+      coord_quickmap(expand = 0) +
       labs(
         title = paste("Random Model Sampling of year", i_year),
+        subtitle = paste("Nr of observations", nrow(model_resample_year)),
         x = "Longitude",
         y = "Latitude"
       ) +
       geom_raster(data = landmask,
                   aes(lon, lat), fill = "grey80")
   )
+
 }
+
+# Calculate and plot depth distribution of model subset
+model_resample_depth <- model_resample %>%
+  count(depth, year)
+
+model_resample_depth_average <- model_resample_depth %>%
+  group_by(depth) %>%
+  summarise(n = mean(n))
+
+model_resample_depth_average %>%
+  arrange(depth) %>%
+  ggplot(aes(n, depth)) +
+  geom_point(data = model_resample_depth,
+             aes(n, depth, col = "All years")) +
+  geom_point(aes(n, depth, col = "Average")) +
+  geom_path(aes(n, depth, col = "Average")) +
+  scale_color_brewer(palette = "Set1",
+                     name = "",
+                     direction = -1) +
+  scale_y_reverse() +
+  coord_cartesian(xlim = c(0,500),
+                  ylim = c(6000,0)) +
+  labs(title = "Depth distribution of random model subset")
+
+
+# Calculate and plot depth distribution of GLODAP data
+# Depths gridded to model depth levels for comparison
+GLODAP_depth <- GLODAP %>%
+  mutate(depth = as.numeric(as.character(cut(depth,
+                     c(0,unique(model_resample_depth_average$depth)),
+                     labels = unique(model_resample_depth_average$depth))))) %>% 
+  count(depth, year)
+
+GLODAP_depth_average <- GLODAP_depth %>%
+  group_by(depth) %>%
+  summarise(n = mean(n))
+
+GLODAP_depth_average %>%
+  arrange(depth) %>%
+  ggplot(aes(n, depth)) +
+  geom_point(data = GLODAP_depth,
+             aes(n, depth, col = "All years")) +
+  geom_point(aes(n, depth, col = "Average")) +
+  geom_path(aes(n, depth, col = "Average")) +
+  scale_color_brewer(palette = "Set1",
+                     name = "",
+                     direction = -1) +
+  scale_y_reverse() +
+  coord_cartesian(xlim = c(0,500),
+                  ylim = c(6000,0)) +
+  labs(title = "Depth distribution of GLODAP observations")
 
 ```
 
