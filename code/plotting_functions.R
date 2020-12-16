@@ -118,33 +118,3 @@ section_zonal <- function(df, i_basin_AIP, var) {
 
 }
 
-
-# define surface map + subset GLODAP function (annual)
-surface_GLODAP <- function(df1, df2, df3, var) {
-  name_var <- var
-  var <- sym(var)
-
-  df1 <- df1 %>%
-    filter(lat < 65)
-
-  df_sub <- df2 %>%
-    filter(lat < 65)
-
-  ggplot() +
-    geom_raster(data = df1, aes(lon, lat, fill = !!var)) +
-    scale_fill_viridis_c(name = name_var) +
-    coord_quickmap(expand = 0) +
-    geom_point(data = df_sub,
-               aes(lon, lat)) +
-    geom_point(data = df3,
-               aes(lon, lat), colour = "red") +
-    labs(
-      title = paste("Observation and Model", i_variable, "Distribution"),
-      subtitle = paste("Model", i_variable, "Depth: 5m | Annual Average", i_year),
-      x = "Longitude",
-      y = "Latitude"
-    ) +
-    geom_raster(data = landmask,
-                aes(lon, lat), fill = "grey80")
-
-}
