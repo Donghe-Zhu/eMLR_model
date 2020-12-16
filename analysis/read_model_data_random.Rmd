@@ -79,11 +79,10 @@ theme_set(theme_bw())
 
 ```{r read_GLODAP_clean_data}
 
-GLODAP <- read_csv(paste(
-    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
-    "original_subset.csv",
-    sep = ""
-  ))
+GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
+                              "GLODAPv2.2020_Merged_clean.csv"))
+GLODAP <- inner_join(GLODAP, basinmask) %>%
+  select(-basin_AIP)
 
 ```
 
