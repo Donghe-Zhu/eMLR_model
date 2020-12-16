@@ -106,11 +106,11 @@ For comparison, model results were converted from [mol m^-3^] to [µmol kg^-1^]
 
 # set path to model output files
 path_model_cmorized <-
-  "/net/kryo/work/loher/CESM_output/RECCAP2/cmorized_Dec2020/split_monthly/"
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/cmorized_Dec2020/split_monthly/"
 
 # set path to model analysis/subsetting output files
 path_model_analysis <-
-  "/net/kryo/work/loher/CESM_output/RECCAP2/analysis/"
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/analysis/"
 
 ```
 
@@ -266,7 +266,7 @@ model_resample <- model_resample %>%
 model_resample %>%
   write_csv(paste(
     paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
-    "random_cmorized_subset_w_aou.csv",
+    "random_subset.csv",
     sep = ""
   ))
 
@@ -279,7 +279,7 @@ model_resample %>%
 model_resample <-
   read_csv(paste(
     paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
-    "random_cmorized_subset_w_aou.csv",
+    "random_subset.csv",
     sep = ""
   ))
 

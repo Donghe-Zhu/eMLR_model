@@ -25,6 +25,7 @@ library(collapse)
 library(lubridate)
 library(rqdatatable)
 library(gsw)
+library(marelac)
 ```
 
 ```{r read_parameters, include = FALSE}
@@ -80,6 +81,8 @@ theme_set(theme_bw())
 
 GLODAP <- read_csv(here::here("data/GLODAPv2_2020",
                               "GLODAPv2.2020_Merged_clean.csv"))
+GLODAP <- inner_join(GLODAP, basinmask) %>%
+  select(-basin_AIP)
 
 ```
 
@@ -104,11 +107,11 @@ For comparison, model results were converted from [mol m^-3^] to [µmol kg^-1^]
 
 # set path to model output files
 path_model_cmorized <-
-  "/net/kryo/work/loher/CESM_output/RECCAP2/cmorized_Dec2020/split_monthly/"
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/cmorized_Dec2020/split_monthly/"
 
 # set path to model analysis/subsetting output files
 path_model_analysis <-
-  "/net/kryo/work/loher/CESM_output/RECCAP2/analysis/"
+  "/nfs/kryo/work/loher/CESM_output/RECCAP2/analysis/"
 
 ```
 
@@ -146,7 +149,7 @@ for (i_year in years) {
   
   for (i_variable in variables) {
     # Uncomment line below for manual testing
-    # i_variable <- variables[1]
+    # i_variable <- variables[2]
     
     # read list of all files
     file <-
@@ -187,43 +190,15 @@ for (i_year in years) {
     variable_data_tibble <- variable_data_tibble %>%
       mutate(lon = if_else(lon < 20, lon + 360, lon))
     
+    # only consider model grids within basinmask
+    variable_data_tibble <-
+      inner_join(variable_data_tibble, basinmask) %>%
+      select(-basin_AIP)
+    
     # mutate variables
     variable_data_tibble <- variable_data_tibble %>%
-      mutate(month = month(time_mon),!!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
+      mutate(month = month(time_mon), !!sym(i_variable) := as.numeric(!!sym(i_variable))) %>%
       select(-time_mon)
-    
-    # calculate density
-    if (exists("unit_trans")) {
-      unit_trans <- left_join(unit_trans, variable_data_tibble)
-    }
-    
-    if (!exists("unit_trans")) {
-      unit_trans <- variable_data_tibble
-    }
-    
-    if (i_variable == "thetao") {
-      unit_trans <- unit_trans %>%
-        mutate(
-          rho = gsw_pot_rho_t_exact(
-            SA = so,
-            t = thetao,
-            p = depth,
-            p_ref = 10.1325
-          ),
-          dens_factor = 1000000 / rho
-        ) %>%
-        select(-so, -thetao)
-    }
-    
-    # unit transfer from mol/m3 to µmol/kg
-    if (i_variable != "so" && i_variable != "thetao") {
-      unit_trans <- unit_trans %>%
-        mutate(!!sym(i_variable) := !!sym(i_variable) * dens_factor)
-      variable_data_tibble <- unit_trans %>%
-        select(lon, lat, depth,!!sym(i_variable), month)
-      unit_trans <- unit_trans %>%
-        select(-!!sym(i_variable))
-    }
     
     # calculate model summary stats
     stats <- variable_data_tibble %>%
@@ -269,6 +244,12 @@ for (i_year in years) {
       select(-n) %>%
       mutate(year = as.numeric(i_year))
     
+    # select observation grids without corresponding model subset
+    na_model <- full_join(obs_depth, model_obs_interpo) %>%
+      filter(is.na(!!sym(i_variable))) %>%
+      select(month, lat, lon) %>%
+      unique()
+    
     # rename interpolated model variable to indicate as model output
     model_obs_interpo <- model_obs_interpo %>%
       rename(!!sym(paste(i_variable, "model", sep = "_")) := !!sym(i_variable))
@@ -296,12 +277,22 @@ for (i_year in years) {
       filter(depth == min(depth))
     
     # surface map of variable
-    surface_GLODAP(
-      variable_data_tibble_annual_average_surface,
-      obs_depth,
-      model_obs_interpo,
-      i_variable
-    )
+    ggplot() +
+      geom_raster(data = variable_data_tibble_annual_average_surface, aes(lon, lat, fill = !!sym(i_variable))) +
+      scale_fill_viridis_c(name = i_variable) +
+      coord_quickmap(expand = 0) +
+      geom_point(data = model_obs_interpo,
+                 aes(lon, lat)) +
+      geom_point(data = na_model,
+                 aes(lon, lat), colour = "red") +
+      labs(
+        title = paste("Observation and model", i_variable, "distribution"),
+        subtitle = paste("Model depth: 5m | Annual average of year", i_year),
+        x = "Longitude",
+        y = "Latitude"
+      ) +
+      geom_raster(data = landmask,
+                  aes(lon, lat), fill = "grey80")
     
     ggsave(
       here::here(
@@ -311,26 +302,46 @@ for (i_year in years) {
       width = 5,
       height = 3
     )
-    # GLODAP with model subset:red point
-    # GLODAP without model subset:black point
-    
-    # combine annual average model file together
-    if (i_variable == "dissic") {
-      # write file for annually averaged model field
-      variable_data_tibble_annual_average %>%
-        write_csv(paste(
-          paste(path_model_analysis, "cmorized_clim/", model_ID, sep = ""),
-          paste("/dissic_annual_average_", i_year, ".csv", sep = ""),
-          sep = ""
-        ))
-      
-    }
-    
+    # GLODAP with model subset: black
+    # GLODAP without model subset: red
   }
   
-  rm(unit_trans)
-  
 }
+
+# filter out GLODAP grids without model subset
+GLODAP <- GLODAP %>%
+  filter(!is.na(so_model))
+
+# unit transfer from mol/m3 to µmol/kg
+GLODAP <- GLODAP %>%
+  mutate(
+    rho = gsw_pot_rho_t_exact(
+      SA = so_model,
+      t = thetao_model,
+      p = depth,
+      p_ref = 10.1325
+    ),
+    dissic_model = dissic_model * (1000000 / rho),
+    talk_model = talk_model * (1000000 / rho),
+    o2_model = o2_model * (1000000 / rho),
+    no3_model = no3_model * (1000000 / rho),
+    po4_model = po4_model * (1000000 / rho),
+    si_model = si_model * (1000000 / rho)
+  )
+
+# calculate AOU
+GLODAP <- GLODAP %>%
+  mutate(
+    oxygen_sat_m3 = gas_satconc(
+      S = so_model,
+      t = thetao_model,
+      P = 1.013253,
+      species = "O2"
+    ),
+    oxygen_sat_kg = oxygen_sat_m3 * (1000 / rho),
+    aou_model = oxygen_sat_kg - o2_model
+  ) %>%
+  select(-oxygen_sat_kg,-oxygen_sat_m3)
 
 # write file for GLODAP observations + subsetted model variables
 GLODAP %>%
@@ -340,7 +351,49 @@ GLODAP %>%
     sep = ""
   ))
 
-# write file for model summary statistics
+# mutate Nan for var -> var_model
+GLODAP$so_model <- ifelse(is.na(GLODAP$sal), NA, GLODAP$so_model)
+GLODAP$thetao_model <- ifelse(is.na(GLODAP$tem), NA, GLODAP$thetao_model)
+GLODAP$dissic_model <- ifelse(is.na(GLODAP$tco2), NA, GLODAP$dissic_model)
+GLODAP$talk_model <- ifelse(is.na(GLODAP$talk), NA, GLODAP$talk_model)
+GLODAP$o2_model <- ifelse(is.na(GLODAP$oxygen), NA, GLODAP$o2_model)
+GLODAP$no3_model <- ifelse(is.na(GLODAP$nitrate), NA, GLODAP$no3_model)
+GLODAP$po4_model <- ifelse(is.na(GLODAP$phosphate), NA, GLODAP$po4_model)
+GLODAP$si_model <- ifelse(is.na(GLODAP$silicate), NA, GLODAP$si_model)
+GLODAP$aou_model <- ifelse(is.na(GLODAP$aou), NA, GLODAP$aou_model)
+
+# remove GLODAP observations and rename model subset
+GLODAP <- GLODAP %>%
+  select(-sal,
+         -tem,
+         -tco2,
+         -talk,
+         -oxygen,
+         -nitrate,
+         -phosphate,
+         -silicate,
+         -aou) %>%
+  rename(
+    sal = so_model,
+    tem = thetao_model,
+    tco2 = dissic_model,
+    talk = talk_model,
+    oxygen = o2_model,
+    nitrate = no3_model,
+    phosphate = po4_model,
+    silicate = si_model,
+    aou = aou_model
+  )
+
+# write file for GLODAP based subsetting model variables
+GLODAP %>%
+  write_csv(paste(
+    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
+    "original_subset.csv",
+    sep = ""
+  ))
+
+# write file for model summary statistics (original cmorized unit)
 stats_summary %>%
   write_csv(paste(
     paste(path_model_analysis, "cmorized_diag/", sep = ""),
@@ -378,20 +431,20 @@ model_obs_interpo <- model_obs %>%
 ggplot() +
   geom_path(
     data = model_obs_interpo %>%
-      filter(lat == 39.5, lon == 348.5,!is.na(!!sym(i_variable)), month == 11) %>%
+      filter(lat == -48.5, lon == 305.5, !is.na(!!sym(i_variable)), month == 4) %>%
       arrange(depth),
     aes(!!sym(i_variable), depth, col = "model")
   ) +
   geom_point(
     data = model_obs_interpo %>%
-      filter(lat == 39.5, lon == 348.5, month == 11),
+      filter(lat == -48.5, lon == 305.5, month == 4),
     aes(!!sym(
       paste(i_variable, "interpolate", sep = "_")
     ), depth, col = "interpolated")
   ) +
   geom_point(
     data = model_obs_interpo %>%
-      filter(lat == 39.5, lon == 348.5,!is.na(!!sym(i_variable)), month == 11) %>%
+      filter(lat == -48.5, lon == 305.5, !is.na(!!sym(i_variable)), month == 4) %>%
       arrange(depth),
     aes(!!sym(i_variable), depth, col = "model")
   ) +
@@ -466,6 +519,11 @@ for (i_year in years) {
   # convert longitudes
   normal_data_tibble <- normal_data_tibble %>%
     mutate(lon = if_else(lon < 20, lon + 360, lon))
+  
+  # only consider model grids within basinmask
+  normal_data_tibble <-
+    inner_join(normal_data_tibble, basinmask) %>%
+    select(-basin_AIP)
   
   # mutate variables and filter NaN value
   normal_data_tibble <- normal_data_tibble %>%

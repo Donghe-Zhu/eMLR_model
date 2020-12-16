@@ -67,41 +67,6 @@ GLODAP_model <-
 ```
 
 
-# Calculate AOU
-
-```{r calculate_AOU}
-
-GLODAP_model <- GLODAP_model %>%
-  filter(!is.na(so_model)) %>%
-  mutate(
-    oxygen_sat_m3 = gas_satconc(
-      S = so_model,
-      t = thetao_model,
-      P = 1.013253,
-      species = "O2"
-    ),
-    rho =
-      gsw_pot_rho_t_exact(
-        SA = so_model,
-        t = thetao_model,
-        p = depth,
-        p_ref = 10.1325
-      ),
-    oxygen_sat_kg = oxygen_sat_m3 * (1000 / rho),
-    aou_model = oxygen_sat_kg - o2_model
-  ) %>%
-  select(-oxygen_sat_kg, -oxygen_sat_m3)
-
-GLODAP_model %>%
-  write_csv(paste(
-    paste(path_model_analysis, "glodapv2_cmorized_synthetic/", sep = ""),
-    "GLODAP_with_cmorized_subset_AOU.csv",
-    sep = ""
-  ))
-
-```
-
-
 # Apply basin mask
 
 ```{r apply_basin_mask_to_GLODAP_model_data}
