@@ -312,12 +312,21 @@ for (i_year in years) {
 GLODAP <- GLODAP %>%
   filter(!is.na(so_model))
 
+
+GLODAP <- GLODAP %>%
+  mutate(temp_model = gsw_pt_from_t(
+      SA = so_model,
+      t = thetao_model,
+      p = 10.1325,
+      p_ref = depth
+  ))
+
 # unit transfer from mol/m3 to µmol/kg
 GLODAP <- GLODAP %>%
   mutate(
     rho = gsw_pot_rho_t_exact(
       SA = so_model,
-      t = thetao_model,
+      t = temp_model,
       p = depth,
       p_ref = 10.1325
     ),
@@ -334,7 +343,7 @@ GLODAP <- GLODAP %>%
   mutate(
     oxygen_sat_m3 = gas_satconc(
       S = so_model,
-      t = thetao_model,
+      t = temp_model,
       P = 1.013253,
       species = "O2"
     ),
